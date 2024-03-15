@@ -1,5 +1,6 @@
 # AAU Connectify
 
+
 AAU Connectify is a project aimed at creating a centralized platform for the Addis Ababa University (AAU) community to enhance communication and connection. By addressing communication gaps and simplifying event discovery, AAU Connectify strives to offer a superior user experience compared to existing methods. The ultimate goal is to create a connected community within Addis Ababa University by encapsulating various campus happenings in one accessible place.
 
 ## Features
@@ -44,7 +45,7 @@ Express.js, a lightweight and flexible web application framework for Node.js, is
 
 ### MongoDB
 
-MongoDB, a NoSQL database, is chosen as the data store for AAU Connectify. Here's why MongoDB is the ideal choice:
+MongoDB,a NoSQL database, is chosen as the data store for AAU Connectify. Here's why MongoDB is the ideal choice:
 
 - **Schemaless Design:** MongoDB's flexible document-based storage accommodates dynamic data structures, allowing us to adapt to evolving project requirements without constraints.
 - **Scalability:** MongoDB's horizontal scaling capabilities ensure that AAU Connectify can handle growing data volumes and user loads, supporting the expansion of the platform.

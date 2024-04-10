@@ -1,9 +1,12 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
-import 'package:json_theme/json_theme_schemas.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-const announcement_categories = [
+// ignore: constant_identifier_names
+const List<String> announcement_categories = [
+  "All",
   "Academic",
   "Research",
   "Events",
@@ -13,15 +16,10 @@ const announcement_categories = [
   "Other"
 ];
 
-class AnnouncementCatagory extends StatefulWidget {
+class AnnouncementCatagory extends StatelessWidget {
   const AnnouncementCatagory({super.key});
 
-  @override
-  State<AnnouncementCatagory> createState() => _AnnouncementCatagoryState();
-}
 
-class _AnnouncementCatagoryState extends State<AnnouncementCatagory> {
-  int _selectedCatagory = 0;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -33,13 +31,10 @@ class _AnnouncementCatagoryState extends State<AnnouncementCatagory> {
           itemBuilder: (context, index) {
             return TextButton(
               onPressed: () {
-                setState(() {
-                  _selectedCatagory = index;
-                });
-                //TODO add the code to handle fielter
+                context.read<GeneralCubit>().setCategory(index);
               },
               style: ButtonStyle(
-                textStyle: MaterialStatePropertyAll(index == _selectedCatagory
+                textStyle: MaterialStatePropertyAll(index == context.watch<GeneralCubit>().category
                     ? Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -53,11 +48,11 @@ class _AnnouncementCatagoryState extends State<AnnouncementCatagory> {
                   ),
                 ),
                 backgroundColor: MaterialStatePropertyAll(
-                    index == _selectedCatagory
+                    index == context.watch<GeneralCubit>().category
                         ? CustomColors.primaryColor
                         : Theme.of(context).colorScheme.background),
                 elevation: MaterialStatePropertyAll(
-                    index == _selectedCatagory ? 23 : 1),
+                    index == context.watch<GeneralCubit>().category ? 23 : 1),
               ),
               child: Text(
                 announcement_categories[index],

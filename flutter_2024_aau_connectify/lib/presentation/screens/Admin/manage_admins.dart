@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/bloc/auth_bloc/auth_bloc.dart';
 import 'package:flutter_2024_aau_connectify/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_2024_aau_connectify/models/user_model.dart';
@@ -20,18 +19,26 @@ class ManageAdmins extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Role change in Progress, Please wait ...'),
             backgroundColor: CustomColors.textGrey,
+            duration: Duration(seconds: 1),
           ));
         }
         if (state is AdminDemoteFailure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            
               content: Text(state.error),
-              backgroundColor: CustomColors.errorColor));
+              duration: const Duration(seconds: 1),
+              backgroundColor: CustomColors.errorColor),
+              
+               
+              );
         }
 
         if (state is AdminDemoteSucces) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Role change completed Successfuly'),
-              backgroundColor: CustomColors.primaryColor));
+              duration: Duration(seconds: 1),
+              backgroundColor: CustomColors.primaryColor), 
+              );
           BlocProvider.of<AuthenticationBloc>(context).add(GetUserDetails());
         }
       },

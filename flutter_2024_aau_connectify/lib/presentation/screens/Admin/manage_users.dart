@@ -17,16 +17,26 @@ class ManageUsers extends StatelessWidget {
     BlocProvider.of<AuthenticationBloc>(context).add(GetUserDetails());
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
-        if(state is UserPromoteLoding){
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Role change in Progress, Please wait ...'), backgroundColor: CustomColors.textGrey,));
+        if (state is UserPromoteLoding) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Role change in Progress, Please wait ...'),
+            duration:  Duration(seconds: 1),
+            backgroundColor: CustomColors.textGrey,
+          ));
         }
-        if (state is UserPromoteFailure){
-          ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(state.error),backgroundColor:CustomColors.errorColor ));
+        if (state is UserPromoteFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.error),
+              duration: const Duration(seconds: 1),
+              backgroundColor: CustomColors.errorColor));
         }
-
-        if(state is UserPromoteSucces){
-          ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text('Role change completed Successfuly'),backgroundColor:CustomColors.primaryColor ));
-           BlocProvider.of<AuthenticationBloc>(context).add(GetUserDetails());
+        if (state is UserPromoteSucces) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Role change completed Successfuly'),
+              duration:  Duration(seconds: 1),
+              backgroundColor: CustomColors.primaryColor)
+              );
+          BlocProvider.of<AuthenticationBloc>(context).add(GetUserDetails());
         }
       },
       child: Column(children: [
@@ -69,10 +79,9 @@ class ManageUsers extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     return UserCard(
-                      email: users[index].email,
-                      name: users[index].fullName,
-                      id: users[index].id
-                    );
+                        email: users[index].email,
+                        name: users[index].fullName,
+                        id: users[index].id);
                   },
                 );
               }

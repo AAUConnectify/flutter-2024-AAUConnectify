@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/bloc/auth_bloc/auth_bloc.dart';
-import 'package:flutter_2024_aau_connectify/bloc/cubit/generalcubit/general_cubit.dart';
+import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart';
 import 'package:flutter_2024_aau_connectify/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_2024_aau_connectify/data_providers/announcement_data_provider.dart';
 import 'package:flutter_2024_aau_connectify/data_providers/user_data_provider.dart';

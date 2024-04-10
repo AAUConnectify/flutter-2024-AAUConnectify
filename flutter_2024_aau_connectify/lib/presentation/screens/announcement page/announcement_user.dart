@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -7,17 +8,21 @@ import 'package:go_router/go_router.dart';
 import '../../widgets/announcement_card.dart';
 import '../../widgets/announcement_catagory.dart';
 
-class AnnouncementUserPage extends StatefulWidget {
+class AnnouncementUserPage extends StatelessWidget {
   const AnnouncementUserPage({super.key});
+   static const List<String> announcementCatagory = [
+  "All",
+  "Academic",
+  "Research",
+  "Events",
+  "Notices",
+  "Internship",
+  "Career",
+  "Other"
+];
 
-  @override
-  State<AnnouncementUserPage> createState() => AnnouncementUserPageState();
-}
-
-class AnnouncementUserPageState extends State<AnnouncementUserPage> {
   @override
   Widget build(BuildContext context) {
-  
     return BlocListener<AnnouncementBloc, AnnouncementState>(
       listener: (context, state) {
         if (state is NoTokenFound) {
@@ -34,7 +39,17 @@ class AnnouncementUserPageState extends State<AnnouncementUserPage> {
               child: BlocBuilder<AnnouncementBloc, AnnouncementState>(
                 builder: (context, state) {
                   if (state is AnnouncementsLoaded) {
-                    final data = state.announcements;
+                    int currentIndex = context.watch<GeneralCubit>().category;
+                    final allData = state.announcements;
+
+                    List data = [];
+                    for(var i in allData){
+                      
+                      if(i.tag == announcementCatagory[currentIndex] || announcementCatagory[currentIndex] == 'All' ){
+                        data.add(i);
+                      }
+                    }
+
                     return ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (context, index) {

@@ -23,6 +23,7 @@ class ProfileUser extends StatelessWidget {
   final String id;
   final String userName;
   final String fieldOfStudy;
+  final String image;
 
   @override
   Widget build(BuildContext context) {

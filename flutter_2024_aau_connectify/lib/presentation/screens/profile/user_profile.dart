@@ -23,7 +23,6 @@ class ProfileUser extends StatelessWidget {
   final String id;
   final String userName;
   final String fieldOfStudy;
-  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +53,8 @@ class ProfileUser extends StatelessWidget {
                 Card(
                   child: Container(
                     height: 350,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -67,7 +66,8 @@ class ProfileUser extends StatelessWidget {
                               'Name: ',
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            Text(name, style: Theme.of(context).textTheme.bodyLarge)
+                            Text(name,
+                                style: Theme.of(context).textTheme.bodyLarge)
                           ],
                         ),
                         Row(
@@ -84,7 +84,8 @@ class ProfileUser extends StatelessWidget {
                           children: [
                             Text('ID: ',
                                 style: Theme.of(context).textTheme.bodyLarge),
-                            Text(id, style: Theme.of(context).textTheme.bodyLarge)
+                            Text(id,
+                                style: Theme.of(context).textTheme.bodyLarge)
                           ],
                         ),
                         Row(
@@ -106,13 +107,18 @@ class ProfileUser extends StatelessWidget {
                                     vertical: CustomPaddings.small),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    showEditDialog(context, fullName: name, fieldOfStudy: fieldOfStudy, bio: '', profilePicture: image);
+                                    showEditDialog(context,
+                                        fullName: name,
+                                        fieldOfStudy: fieldOfStudy,
+                                        bio: '',
+                                        profilePicture: image);
                                   },
                                   style: Theme.of(context)
                                       .elevatedButtonTheme
                                       .style!
                                       .copyWith(
-                                        minimumSize: const MaterialStatePropertyAll(
+                                        minimumSize:
+                                            const MaterialStatePropertyAll(
                                           Size(double.infinity,
                                               ButtonHeights.medium),
                                         ),
@@ -124,9 +130,10 @@ class ProfileUser extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: CustomPaddings.small),
                                 child: ElevatedButton(
-                                  key: const Key('logout_button'),
+                                    key: const Key('logout_button'),
                                     onPressed: () {
-                                      BlocProvider.of<AuthenticationBloc>(context)
+                                      BlocProvider.of<AuthenticationBloc>(
+                                              context)
                                           .add(LoggedOut());
                                     },
                                     style: Theme.of(context)
@@ -143,9 +150,10 @@ class ProfileUser extends StatelessWidget {
                                                     Theme.of(context)
                                                         .colorScheme
                                                         .error)),
-                                    child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                                    child: BlocBuilder<AuthenticationBloc,
+                                        AuthenticationState>(
                                       builder: (context, state) {
-                                        if (state is AuthenticationLoading){
+                                        if (state is AuthenticationLoading) {
                                           return const CircularProgressIndicator(
                                             color: Colors.white,
                                             value: null,

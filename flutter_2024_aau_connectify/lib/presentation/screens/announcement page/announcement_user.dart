@@ -7,7 +7,7 @@ import '../../widgets/announcement_card.dart';
 import '../../widgets/announcement_catagory.dart';
 
 class AnnouncementUserPage extends StatefulWidget {
-  const AnnouncementUserPage({super.key});
+  const AnnouncementUserPage({Key? key}) : super(key: key); 
 
   @override
   State<AnnouncementUserPage> createState() => AnnouncementUserPageState();

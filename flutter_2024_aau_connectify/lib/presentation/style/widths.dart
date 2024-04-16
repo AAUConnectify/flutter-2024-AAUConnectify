@@ -9,5 +9,4 @@ class ButtonWidths {
 class CustomImageWidths {
   static const double imagesSmall = 200;
   static const double imagesMedium = 300;
-  static const double imagesLarge = 400;
-}
+  static const double imagesLarge = 400;}

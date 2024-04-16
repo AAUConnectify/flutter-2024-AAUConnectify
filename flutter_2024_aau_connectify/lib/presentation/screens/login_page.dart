@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart'
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/user_Home.dart';

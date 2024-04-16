@@ -1,6 +1,7 @@
-import 'dart:ui';
+import 'dart:ui'
 
 class CustomColors {
+
   static const Color backgroundColor = Color(0xFFFFFFFF);
   static const Color primaryColor = Color(0xFF53E88B);
   static const Color secondaryColor = Color(0xFFDA6317);

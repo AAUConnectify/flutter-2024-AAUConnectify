@@ -88,8 +88,8 @@ class ProfileUser extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: CustomPaddings.small),
+                          padding:
+                              const EdgeInsets.only(top: CustomPaddings.small),
                           child: ElevatedButton(
                             onPressed: () {},
                             style: Theme.of(context)
@@ -105,7 +105,7 @@ class ProfileUser extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: CustomPaddings.small),
+                              vertical: CustomPaddings.medium),
                           child: ElevatedButton(
                               onPressed: () {},
                               style: Theme.of(context)
@@ -120,7 +120,23 @@ class ProfileUser extends StatelessWidget {
                                       backgroundColor: MaterialStatePropertyAll(
                                           Theme.of(context).colorScheme.error)),
                               child: const Text('Log Out')),
-                        )
+                        ),
+                        // A button which is not visible for a user view 
+                        ElevatedButton(
+                            onPressed: () {},
+                            style: Theme.of(context)
+                                .elevatedButtonTheme
+                                .style!
+                                .copyWith(
+                                    minimumSize: const MaterialStatePropertyAll(
+                                      Size(double.infinity,
+                                          ButtonHeights.medium),
+                                    ),
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Theme.of(context)
+                                            .colorScheme
+                                            .tertiary)),
+                            child: const Text('User Mangement')),
                       ],
                     ),
                   )

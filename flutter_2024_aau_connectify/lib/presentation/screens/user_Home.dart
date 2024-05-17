@@ -28,6 +28,7 @@ class Home extends StatelessWidget {
       label: 'Announcement',
     ),
     const BottomNavigationBarItem(
+      key:Key('profile'),
       icon: Icon(Icons.person),
       label: 'Profile',
     ),

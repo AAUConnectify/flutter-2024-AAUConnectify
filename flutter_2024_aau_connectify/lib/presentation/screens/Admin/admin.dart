@@ -30,9 +30,9 @@ class AdminPage extends StatelessWidget {
     ),
   ];
   final _pages = [
-   const ManageAnnouncement(),
+    const ManageAnnouncement(),
     ManageUsers(),
-   ManageAdmins(),
+    ManageAdmins(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -40,26 +40,24 @@ class AdminPage extends StatelessWidget {
       body: Stack(
         children: [
           Column(children: [
-          Container(
-            color: Colors.grey[200],
-            child: BottomNavigationBar(
-              selectedItemColor: Colors.blue,
-              unselectedItemColor: Colors.grey,
-              showUnselectedLabels: true,
-              items: _bottomNavBarItems,
-              currentIndex: context.watch<GeneralCubit>().adminIndex,
-              onTap: (int index) {
-                context.read<GeneralCubit>().setAdminIndex(index);
-              },
+            Container(
+              color: Colors.grey[200],
+              child: BottomNavigationBar(
+                selectedItemColor: Colors.blue,
+                unselectedItemColor: Colors.grey,
+                showUnselectedLabels: true,
+                items: _bottomNavBarItems,
+                currentIndex: context.watch<GeneralCubit>().adminIndex,
+                onTap: (int index) {
+                  context.read<GeneralCubit>().setAdminIndex(index);
+                },
+              ),
             ),
-          ),
-          Expanded(
-            child: _pages[context.watch<GeneralCubit>().adminIndex],
-          ),]),
-          
-          
+            Expanded(
+              child: _pages[context.watch<GeneralCubit>().adminIndex],
+            ),
+          ]),
         ],
-
       ),
     );
   }

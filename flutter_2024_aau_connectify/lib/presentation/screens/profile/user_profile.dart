@@ -33,136 +33,141 @@ class ProfileUser extends StatelessWidget {
           context.go(landingpageRoute);
         }
       },
-      child: Expanded(
-        child: ListView(
-          children: [
-            CircleAvatar(
-              backgroundImage: AssetImage(image),
-              minRadius: CustomRadius.extraLarge,
-              maxRadius: CustomRadius.ultimateLarge,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(CustomPaddings.small),
-              child: Text(
-                'User Profile',
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Card(
-              child: Container(
-                height: 350,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                CircleAvatar(
+                  backgroundImage: AssetImage(image),
+                  minRadius: CustomRadius.extraLarge,
+                  maxRadius: CustomRadius.ultimateLarge,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(CustomPaddings.small),
+                  child: Text(
+                    'User Profile',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    height: 350,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          'Name: ',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        Text(name, style: Theme.of(context).textTheme.bodyLarge)
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Field: ',
-                            style: Theme.of(context).textTheme.bodyLarge),
-                        Text(fieldOfStudy,
-                            style: Theme.of(context).textTheme.bodyLarge)
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('ID: ',
-                            style: Theme.of(context).textTheme.bodyLarge),
-                        Text(id, style: Theme.of(context).textTheme.bodyLarge)
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('User Name: ',
-                            style: Theme.of(context).textTheme.bodyLarge),
-                        Text(userName,
-                            style: Theme.of(context).textTheme.bodyLarge)
-                      ],
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: CustomPaddings.medium),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: CustomPaddings.small),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                showEditDialog(context, fullName: name, fieldOfStudy: fieldOfStudy, bio: '', profilePicture: image);
-                              },
-                              style: Theme.of(context)
-                                  .elevatedButtonTheme
-                                  .style!
-                                  .copyWith(
-                                    minimumSize: const MaterialStatePropertyAll(
-                                      Size(double.infinity,
-                                          ButtonHeights.medium),
-                                    ),
-                                  ),
-                              child: const Text('Edit'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Name: ',
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: CustomPaddings.small),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  BlocProvider.of<AuthenticationBloc>(context)
-                                      .add(LoggedOut());
-                                },
-                                style: Theme.of(context)
-                                    .elevatedButtonTheme
-                                    .style!
-                                    .copyWith(
-                                        minimumSize:
-                                            const MaterialStatePropertyAll(
+                            Text(name, style: Theme.of(context).textTheme.bodyLarge)
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Field: ',
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            Text(fieldOfStudy,
+                                style: Theme.of(context).textTheme.bodyLarge)
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('ID: ',
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            Text(id, style: Theme.of(context).textTheme.bodyLarge)
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('User Name: ',
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            Text(userName,
+                                style: Theme.of(context).textTheme.bodyLarge)
+                          ],
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: CustomPaddings.medium),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: CustomPaddings.small),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    showEditDialog(context, fullName: name, fieldOfStudy: fieldOfStudy, bio: '', profilePicture: image);
+                                  },
+                                  style: Theme.of(context)
+                                      .elevatedButtonTheme
+                                      .style!
+                                      .copyWith(
+                                        minimumSize: const MaterialStatePropertyAll(
                                           Size(double.infinity,
                                               ButtonHeights.medium),
                                         ),
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                Theme.of(context)
-                                                    .colorScheme
-                                                    .error)),
-                                child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                                  builder: (context, state) {
-                                    if (state is AuthenticationLoading){
-                                      return const CircularProgressIndicator(
-                                        color: Colors.white,
-                                        value: null,
-                                        semanticsLabel: 'Loading',
-                                        strokeWidth: 2.0,
-                                      );
-                                    }
-                                    return const Text('Log Out');
-                                  },
-                                )),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+                                      ),
+                                  child: const Text('Edit'),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: CustomPaddings.small),
+                                child: ElevatedButton(
+                                  key: const Key('logout_button'),
+                                    onPressed: () {
+                                      BlocProvider.of<AuthenticationBloc>(context)
+                                          .add(LoggedOut());
+                                    },
+                                    style: Theme.of(context)
+                                        .elevatedButtonTheme
+                                        .style!
+                                        .copyWith(
+                                            minimumSize:
+                                                const MaterialStatePropertyAll(
+                                              Size(double.infinity,
+                                                  ButtonHeights.medium),
+                                            ),
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .error)),
+                                    child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                                      builder: (context, state) {
+                                        if (state is AuthenticationLoading){
+                                          return const CircularProgressIndicator(
+                                            color: Colors.white,
+                                            value: null,
+                                            semanticsLabel: 'Loading',
+                                            strokeWidth: 2.0,
+                                          );
+                                        }
+                                        return const Text('Log Out');
+                                      },
+                                    )),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

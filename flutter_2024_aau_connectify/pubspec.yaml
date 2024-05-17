@@ -46,6 +46,8 @@ dependencies:
   jwt_decode:
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   

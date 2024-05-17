@@ -33,18 +33,24 @@ class _LandingPageState extends State<LandingPage> {
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(CustomPaddings.small),
-            child: Stack(
-              fit: StackFit.expand,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Stack(
+                    fit: StackFit.expand,
                     children: <Widget>[
-                      // Main Component
-                      LandingPageMainComponent(),
-                      // Buttons
-                      LoginButtons(
-                          login_route: loginRoute, signup_route: signupRoute),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          // Main Component
+                          LandingPageMainComponent(),
+                          // Buttons
+                          LoginButtons(
+                              login_route: loginRoute,
+                              signup_route: signupRoute),
+                        ],
+                      ),
                     ],
                   ),
                 ),

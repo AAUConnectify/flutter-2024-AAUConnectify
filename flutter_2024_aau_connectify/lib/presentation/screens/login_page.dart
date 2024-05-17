@@ -81,6 +81,7 @@ class LoginPage extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     TextFieldCustom(
+                                      
                                       countroller: _emailController,
                                       label: 'Email',
                                       
@@ -89,6 +90,7 @@ class LoginPage extends StatelessWidget {
                                       height: CustomPaddings.medium,
                                     ),
                                     TextFieldCustom(
+                                      key: const Key('password'),
                                       countroller: _passwordController,
                                       label: 'Password',
                                       isPass: true,
@@ -117,6 +119,7 @@ class LoginPage extends StatelessWidget {
                                       height: CustomPaddings.small,
                                     ),
                                     ElevatedButton(
+                                      key: const Key('login_button'),
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: const Size(
                                             ButtonWidths.extraLarge,

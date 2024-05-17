@@ -46,77 +46,81 @@ class SignUp3 extends StatelessWidget {
           ),
         ),
         body: Center(
-          child: Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                    margin: const EdgeInsets.only(bottom: 20, left: 40),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Center(
-                      child: Text('vefication code is sent to : $email ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(fontWeight: FontWeight.w600)),
-                    )),
-                Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                        'verification code is sent to your email address',
+          child: Column(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 20, left: 40),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Center(
+                          child: Text('vefication code is sent to : $email ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(fontWeight: FontWeight.w600)),
+                        )),
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                            'verification code is sent to your email address',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(fontWeight: FontWeight.w600))),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: CustomPaddings.medium),
+                        child: ListView(
+                          children: [
+                            ///addition info for the user
+                            TextFieldCustom(
+                                countroller: _verifyEmail,
+                                label: 'verification code'),
+                            //create a list of secret questions for the user to choose from and answer
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      margin: const EdgeInsets.symmetric(vertical: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                            BlocProvider.of<AuthenticationBloc>(context).add(
+                                VerifyEmail(email: email, code: _verifyEmail.text));
+                          
+                        },
                         style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall!
-                            .copyWith(fontWeight: FontWeight.w600))),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: CustomPaddings.medium),
-                    child: ListView(
-                      children: [
-                        ///addition info for the user
-                        TextFieldCustom(
-                            countroller: _verifyEmail,
-                            label: 'verification code'),
-                        //create a list of secret questions for the user to choose from and answer
-                      ],
-                    ),
-                  ),
+                            .elevatedButtonTheme
+                            .style!
+                            .copyWith(
+                                minimumSize: const MaterialStatePropertyAll(
+                                    Size(double.infinity, 50))),
+                        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                          builder: (context, state) {
+                            if (state is AuthenticationLoading){
+                              return const CircularProgressIndicator();
+                            }
+                            return Text(
+                              "Verify Email",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(color: Colors.white),
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  child: ElevatedButton(
-                    onPressed: () {
-                        BlocProvider.of<AuthenticationBloc>(context).add(
-                            VerifyEmail(email: email, code: _verifyEmail.text));
-                      
-                    },
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style!
-                        .copyWith(
-                            minimumSize: const MaterialStatePropertyAll(
-                                Size(double.infinity, 50))),
-                    child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                      builder: (context, state) {
-                        if (state is AuthenticationLoading){
-                          return const CircularProgressIndicator();
-                        }
-                        return Text(
-                          "Verify Email",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(color: Colors.white),
-                        );
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

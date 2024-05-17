@@ -64,9 +64,8 @@ class Home extends StatelessWidget {
         return BlocListener<RoleBloc, RoleState>(
           listener: (context, state) {
             if (state is UserData) {
-              print('Role: ${state.role} setting role in general cubit');
               context.read<GeneralCubit>().setRole(state.role);
-              print('get role from general cubit: ${context.read<GeneralCubit>().role}');
+              context.read<GeneralCubit>().setUserId(state.userId);
             }
           },
           child: BlocBuilder<AnnouncementBloc, AnnouncementState>(
@@ -95,7 +94,6 @@ class Home extends StatelessWidget {
                             context.read<GeneralCubit>().navigationIndex,
                         onTap: (val) {
                           context.read<GeneralCubit>().setNavigationIndex(val);
-                          print(context.read<GeneralCubit>().role);
                         },
                       ),
                       body: context.watch<GeneralCubit>().role == 'user'

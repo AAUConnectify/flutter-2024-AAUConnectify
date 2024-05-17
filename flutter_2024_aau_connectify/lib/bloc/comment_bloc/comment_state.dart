@@ -21,21 +21,11 @@ class CommentLoaded extends CommentState {
 }
 
 class CommentOperationSuccess extends CommentState {
-  final Comment comment;
-
-  const CommentOperationSuccess(this.comment);
-
-  @override
-  List<Object> get props => [comment];
+  
 }
 
 class CommentDeleted extends CommentState {
-  final String message;
-
-  const CommentDeleted(this.message);
-
-  @override
-  List<Object> get props => [message];
+  
 }
 
 class CommentOperationFailure extends CommentState {
@@ -46,3 +36,7 @@ class CommentOperationFailure extends CommentState {
   @override
   List<Object> get props => [error];
 }
+
+
+final class CommentPosting extends CommentState {}
+

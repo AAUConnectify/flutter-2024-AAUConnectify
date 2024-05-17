@@ -48,7 +48,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
         emit(AnnouncementsLoaded(announcements));
       }
     } catch (e) {
-      emit(AnnouncementOperationFailure(e.toString()));
+      emit(const AnnouncementOperationFailure('Failed to load announcements'));
     }
   }
 
@@ -66,7 +66,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
           await announcementRepository.getAnnouncementById(event.id, token);
       emit((SingleAnnouncementLoaded(announcements)));
     } catch (e) {
-      emit(AnnouncementOperationFailure(e.toString()));
+      emit(const AnnouncementOperationFailure('Failed to load announcements'));
     }
   }
 
@@ -103,7 +103,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
             'Failed to create announcement'));
       } 
     } catch (e) {
-      emit(AnnouncementOperationFailure(e.toString()));
+      emit(const AnnouncementOperationFailure('Failed to create announcement'));
     }
   }
 
@@ -141,7 +141,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
             'Failed to update announcement'));
       }
     } catch (e) {
-      emit(AnnouncementOperationFailure(e.toString()));
+      emit(const AnnouncementOperationFailure('Failed to update announcement'));
     }
   }
 
@@ -171,7 +171,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
             'Failed to delete announcement'));
       }
     } catch (e) {
-      emit(AnnouncementOperationFailure(e.toString()));
+      emit(const AnnouncementOperationFailure('Failed to delete announcement'));
     }
   }
  

@@ -6,6 +6,7 @@ import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart
 import 'package:flutter_2024_aau_connectify/bloc/role_bloc/role_bloc.dart';
 import 'package:flutter_2024_aau_connectify/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_2024_aau_connectify/data_providers/announcement_data_provider.dart';
+import 'package:flutter_2024_aau_connectify/data_providers/comment_data_provider.dart';
 import 'package:flutter_2024_aau_connectify/data_providers/user_data_provider.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
@@ -43,6 +44,10 @@ class AAUConnectifyApp extends StatelessWidget {
           create: (context) =>
               AnnouncementRepository(AnnouncementDataProvider()),
         ),
+        RepositoryProvider(
+          create: (context) =>
+              CommentRepository(dataProvider: CommentDataProvider()),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -66,10 +71,12 @@ class AAUConnectifyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => RoleBloc(),
-          ), 
-          BlocProvider(create: (context) => CommentBloc(
-            commentRepository: RepositoryProvider.of<CommentRepository>(context),
-          ) )
+          ),
+          BlocProvider(
+              create: (context) => CommentBloc(
+                    commentRepository:
+                        RepositoryProvider.of<CommentRepository>(context),
+                  ))
         ],
         child: MaterialApp.router(
           routerDelegate: AppRouter.router.routerDelegate,

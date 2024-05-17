@@ -48,11 +48,12 @@ class UserRepository {
     try {
       final response =
           await userDataProvider.verifyEmail(email, verificationCode);
-      if (response['statusCode'] < 200 || response['statusCode'] > 300) return false;
+      if (response['statusCode'] < 200 || response['statusCode'] > 300)
+        return false;
 
       final data = jsonDecode(response['body']);
 
-      if (data['message'] != 'Email verified successfully.'){
+      if (data['message'] != 'Email verified successfully.') {
         return false;
       }
 
@@ -67,7 +68,8 @@ class UserRepository {
     try {
       final response = await userDataProvider.login(email, password);
 
-      if (response['statusCode'] < 200 || response['statusCode'] > 300) return {'success': false};
+      if (response['statusCode'] < 200 || response['statusCode'] > 300)
+        return {'success': false};
 
       final data = jsonDecode(response['body']);
       return {'success': true, 'token': data['accessToken']};
@@ -80,36 +82,39 @@ class UserRepository {
   Future<Map> getUserDetails(String token) async {
     try {
       final response = await userDataProvider.getUserDetails(token);
-      if (response['success'] == false) return {'success': false, 'message': 'Failed to get user details'};
+      if (response['success'] == false)
+        return {'success': false, 'message': 'Failed to get user details'};
       final data = jsonDecode(response['body']);
       return {'success': true, 'user': data};
     } catch (e) {
       return {'success': false, 'message': 'Failed to get user details'};
     }
   }
+
   Future<Map> changeRole(String newRole, String userId, String token) async {
     try {
-      final response = await userDataProvider.changeRole(newRole, userId, token);
-      if (response['success'] == false) return {'success': false, 'message': 'Failed to change the role'};
+      final response =
+          await userDataProvider.changeRole(newRole, userId, token);
+      if (response['success'] == false)
+        return {'success': false, 'message': 'Failed to change the role'};
       final data = jsonDecode(response['body']);
       return {'success': true, 'user': data};
     } catch (e) {
       return {'success': false, 'message': 'Failed to change the role'};
     }
   }
-  Future<Map> getProfile( String token) async {
+
+  Future<Map> getProfile(String token) async {
     try {
-      final response = await userDataProvider.getProfle( token);
-      if (response['success'] == false) return {'success': false, 'message': 'Failed to change the role'};
+      final response = await userDataProvider.getProfle(token);
+      print('response: $response');
+      if (response['success'] == false) {
+        return {'success': false, 'message': 'Failed to change the role'};
+      }
       final data = response['body'];
       return {'success': true, 'user': data};
     } catch (e) {
       return {'success': false, 'message': 'Failed to change the role'};
     }
   }
-  
-
-
 }
-
-

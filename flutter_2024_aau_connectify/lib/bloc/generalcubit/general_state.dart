@@ -11,11 +11,10 @@ final class GeneralStats extends GeneralState {
   final int navigationIndex;
   final int category;
   final int adminIndex;
+  final String userid;
   final String role;
-  const GeneralStats(this.navigationIndex, this.category, this.adminIndex, this.role);
+  const GeneralStats(this.navigationIndex, this.category, this.adminIndex, this.role, this.userid);
 
   @override
-  List<Object> get props => [navigationIndex, category, adminIndex, role];
-
-
+  List<Object> get props => [navigationIndex, category, adminIndex, role, userid];
 }

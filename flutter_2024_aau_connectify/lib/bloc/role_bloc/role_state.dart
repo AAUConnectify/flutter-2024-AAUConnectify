@@ -13,7 +13,8 @@ final class RoleLoading extends RoleState {}
 final class UserData extends RoleState {
   final String role;
   final bool isExpired;
-  const UserData(this.role, this.isExpired);
+  final String userId;
+  const UserData(this.role, this.isExpired, this.userId);
 }
 
 final class NoTokenFound extends RoleState {}

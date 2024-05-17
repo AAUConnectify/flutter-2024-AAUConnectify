@@ -11,11 +11,17 @@ Future<String?> getToken() async {
   return prefs.getString('auth_token');
 }
 
+Future<String?> getUserId() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('user_id');
+}
+
 class RoleBloc extends Bloc<RoleEvent, RoleState> {
   RoleBloc() : super(RoleInitial()) {
     on<RoleStatus>((event, emit) async {
       emit(RoleLoading());
       String? token = await getToken();
+      String? userId = await getUserId();
       if (token == null) {
         emit(NoTokenFound());
         return;
@@ -29,7 +35,7 @@ class RoleBloc extends Bloc<RoleEvent, RoleState> {
         emit(NoTokenFound());
         return;
       }
-      emit(UserData(role, isExpired));
+      emit(UserData(role, isExpired, userId!));
     });
   }
   void onEvent(RoleEvent event) {

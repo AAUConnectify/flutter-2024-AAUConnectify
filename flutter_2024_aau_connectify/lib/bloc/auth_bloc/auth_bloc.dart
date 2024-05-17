@@ -58,10 +58,12 @@ class AuthenticationBloc
     emit(AuthenticationLoading());
     try {
       final response = await userRepository.login(event.email, event.password);
+      print('response is $response');
       if (response['success']) {
         final profile = await userRepository.getProfile(response['token']);
-        Profile user = Profile.fromMap(profile['user']['profile']);
+                print('profile is $profile');
 
+        Profile user = Profile.fromMap(profile['user']['profile']);
         if (profile['success']) {
           await saveToken(response['token' ], user);
         }

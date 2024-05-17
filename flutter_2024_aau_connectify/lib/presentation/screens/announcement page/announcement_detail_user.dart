@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/bloc/comment_bloc/comment_bloc.dart';
+import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart';
+import 'package:flutter_2024_aau_connectify/models/comment_model.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
+import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_description_card.dart';
@@ -11,9 +15,11 @@ import 'package:go_router/go_router.dart';
 
 class AnnouncementDetailUser extends StatelessWidget {
   final String id;
-  const AnnouncementDetailUser({super.key, required this.id});
+  AnnouncementDetailUser({super.key, required this.id});
+  TextEditingController commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<CommentBloc>(context).add(FetchComments(id));
     return Scaffold(
       appBar: AppBar(
         title: const Text("post detail"),
@@ -59,13 +65,14 @@ class AnnouncementDetailUser extends StatelessWidget {
               }
             },
           ),
-          const Card(
+          Card(
             child: Padding(
-              padding: EdgeInsets.all(CustomPaddings.medium),
+              padding: const EdgeInsets.all(CustomPaddings.medium),
               child: TextField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                decoration: InputDecoration(
+                controller: commentController,
+                decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
                   disabledBorder: UnderlineInputBorder(),
                   focusedBorder: UnderlineInputBorder(),
@@ -77,82 +84,134 @@ class AnnouncementDetailUser extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(CustomPaddings.extraLarge),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                alignment: Alignment.center,
-                textStyle: MaterialStatePropertyAll(
-                    Theme.of(context).textTheme.titleLarge),
-                padding: const MaterialStatePropertyAll(
-                  EdgeInsets.symmetric(
-                      horizontal: CustomPaddings.medium,
-                      vertical: CustomPaddings.large),
-                ),
-              ),
-              onPressed: () {
-                BlocProvider.of<CommentBloc>(context).add(
-                  CreateComment('This is a comment from the user. on the land of bad', id),
-                );
+            child: BlocListener<CommentBloc, CommentState>(
+              listener: (context, state) {
+                if (state is CommentPosting) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Comment post on progress...'),
+                      duration: Duration(seconds: 2),
+                      backgroundColor: CustomColors.textGrey,
+                    ),
+                  );
+                }
+                if (state is CommentOperationSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Comment posted successfully'),
+                      duration: Duration(seconds: 2),
+                      backgroundColor: CustomColors.primaryColor,
+                    ),
+                  );
+                }
+                if (state is CommentOperationFailure) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text((state).error),
+                      duration: const Duration(seconds: 2),
+                      backgroundColor: CustomColors.errorColor,
+                    ),
+                  );
+                }
               },
-              child: const Text('Post Comment'),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  alignment: Alignment.center,
+                  textStyle: MaterialStatePropertyAll(
+                      Theme.of(context).textTheme.titleLarge),
+                  padding: const MaterialStatePropertyAll(
+                    EdgeInsets.symmetric(
+                        horizontal: CustomPaddings.medium,
+                        vertical: CustomPaddings.large),
+                  ),
+                ),
+                onPressed: () {
+                  BlocProvider.of<CommentBloc>(context).add(
+                    CreateComment(commentController.text, id),
+                  );
+                },
+                child: const Text('Post Comment'),
+              ),
             ),
           ),
-          const Column(
-            children: [
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
-                ),
-                title: Text('John Doe'),
-                subtitle: Text('This is a comment from the user.'),
-              ),
-              Divider(),
-            ],
-          ),
-          Column(
-            children: [
-              const ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
-                ),
-                title: Text('John Doe'),
-                subtitle: Text('This is a comment from the user.'),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  //edit button
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Edit'),
-                  ),
-                  //delete button
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                          Theme.of(context).colorScheme.error),
+          BlocBuilder<CommentBloc, CommentState>(
+            builder: (context, state) {
+              if (state is CommentLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (state is CommentLoaded) {
+                final List<Comment> commentsData = state.comments;
+                if (commentsData.isEmpty) {
+                  return const Center(
+                    child: Text('No comments found. Be the first to comment!'),
+                  );
+                }
+                return SizedBox(
+                  height: 300,
+                  child: Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            ListTile(
+                              leading: const CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
+                              ),
+                              title: const Text('John Doe'),
+                              subtitle: Text(commentsData[index].content),
+                            ),
+                            //Show edit and delete button only if the comment is made by the user
+                            commentsData[index].userId !=
+                                    context.read<GeneralCubit>().userid
+                                ? Container()
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      //edit button
+                                      ElevatedButton(
+                                        onPressed: () {},
+                                        child: const Text('Edit'),
+                                      ),
+                                      //delete button
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStatePropertyAll(
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .error),
+                                        ),
+                                        onPressed: () {},
+                                        child: const Text('Delete'),
+                                      ),
+                                    ],
+                                  )
+                          ],
+                        );
+                      },
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemCount: commentsData.length,
                     ),
-                    onPressed: () {},
-                    child: const Text('Delete'),
+                  ),
+                );
+              }
+              return Center(
+                  child: Column(
+                children: [
+                  const Text('Failed to load comments. please try again'),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      BlocProvider.of<CommentBloc>(context)
+                          .add(FetchComments(id));
+                    },
+                    child: const Text('Retry'),
                   ),
                 ],
-              ),
-              const Divider(),
-            ],
-          ),
-          const Column(
-            children: [
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
-                ),
-                title: Text('John Doe'),
-                subtitle: Text('This is a comment from the user.'),
-              ),
-              Divider(),
-            ],
+              ));
+            },
           ),
         ],
       ),

@@ -28,7 +28,6 @@ class ManageAdmins extends StatelessWidget {
               content: Text(state.error),
               duration: const Duration(seconds: 1),
               backgroundColor: CustomColors.errorColor),
-              
                
               );
         }

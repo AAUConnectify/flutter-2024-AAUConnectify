@@ -10,6 +10,9 @@ class APIEndpoints {
   static const String changeRole = '/auth/role';
   static const String deleteUser = '/auth/userId';
   static const String getAllUsers = '/auth';
+  static const String getProfile = '/auth/profile';
+  static const String createProfile= '/auth/profile';
+  static const String updateProfile = '/auth/profile';
 
   static const String createAnnouncement = '/announcements';
   static const String getAnnouncements = '/announcements';

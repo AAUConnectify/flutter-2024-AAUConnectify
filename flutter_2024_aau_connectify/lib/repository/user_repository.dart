@@ -97,7 +97,19 @@ class UserRepository {
       return {'success': false, 'message': 'Failed to change the role'};
     }
   }
+  Future<Map> getProfile( String token) async {
+    try {
+      final response = await userDataProvider.getProfle( token);
+      if (response['success'] == false) return {'success': false, 'message': 'Failed to change the role'};
+      final data = response['body'];
+      return {'success': true, 'user': data};
+    } catch (e) {
+      return {'success': false, 'message': 'Failed to change the role'};
+    }
+  }
   
 
 
 }
+
+

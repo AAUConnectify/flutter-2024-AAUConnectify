@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_2024_aau_connectify/models/user_model.dart';
+import 'package:flutter_2024_aau_connectify/repository/token.dart';
 import 'package:flutter_2024_aau_connectify/repository/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,10 +17,15 @@ Future<String?> getToken() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getString('auth_token');
 }
+Future<String?> getRole() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('role');
+}
 
-Future<void> saveToken(String token) async {
+Future<void> saveToken(String token, Profile user) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('auth_token', token);
+  await prefs.setString('user_id', user.user);
 }
 
 class AuthenticationBloc
@@ -53,7 +59,12 @@ class AuthenticationBloc
     try {
       final response = await userRepository.login(event.email, event.password);
       if (response['success']) {
-        await saveToken(response['token']);
+        final profile = await userRepository.getProfile(response['token']);
+        Profile user = Profile.fromMap(profile['user']['profile']);
+
+        if (profile['success']) {
+          await saveToken(response['token' ], user);
+        }
         emit(AuthenticationAuthenticated(token: response['token']));
       } else {
         emit(const AuthenticationFailure(error: 'Login failed'));
@@ -151,5 +162,9 @@ class AuthenticationBloc
     } catch (e) {
       emit(UserLoadFailure(error: e.toString()));
     }
+  }
+  void onEvent(AuthenticationEvent event) {
+    print('$event is the event that was called');
+    super.onEvent(event);
   }
 }

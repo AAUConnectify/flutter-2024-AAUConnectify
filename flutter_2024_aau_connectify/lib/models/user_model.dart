@@ -91,3 +91,87 @@ class User {
       role.hashCode;
   }
 }
+
+
+class Profile {
+   final String user;
+  final String fullName;
+  final String bio;
+  final String fieldOfStudy;
+  final String profilePicture;
+  Profile({
+    required this.user,
+    required this.fullName,
+    required this.bio,
+    required this.fieldOfStudy,
+    required this.profilePicture,
+  });
+
+  Profile copyWith({
+    String? user,
+    String? fullName,
+    String? bio,
+    String? fieldOfStudy,
+    String? profilePicture,
+  }) {
+    return Profile(
+      user: user ?? this.user,
+      fullName: fullName ?? this.fullName,
+      bio: bio ?? this.bio,
+      fieldOfStudy: fieldOfStudy ?? this.fieldOfStudy,
+      profilePicture: profilePicture ?? this.profilePicture,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+  
+    result.addAll({'user': user});
+    result.addAll({'fullName': fullName});
+    result.addAll({'bio': bio});
+    result.addAll({'fieldOfStudy': fieldOfStudy});
+    result.addAll({'profilePicture': profilePicture});
+  
+    return result;
+  }
+
+  factory Profile.fromMap(Map<String, dynamic> map) {
+    return Profile(
+      user: map['user'] ?? '',
+      fullName: map['fullName'] ?? '',
+      bio: map['bio'] ?? '',
+      fieldOfStudy: map['fieldOfStudy'] ?? '',
+      profilePicture: map['profilePicture'] ?? '',
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Profile.fromJson(String source) => Profile.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Profile(user: $user, fullName: $fullName, bio: $bio, fieldOfStudy: $fieldOfStudy, profilePicture: $profilePicture)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+  
+    return other is Profile &&
+      other.user == user &&
+      other.fullName == fullName &&
+      other.bio == bio &&
+      other.fieldOfStudy == fieldOfStudy &&
+      other.profilePicture == profilePicture;
+  }
+
+  @override
+  int get hashCode {
+    return user.hashCode ^
+      fullName.hashCode ^
+      bio.hashCode ^
+      fieldOfStudy.hashCode ^
+      profilePicture.hashCode;
+  }
+}

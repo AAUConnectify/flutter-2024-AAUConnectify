@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_2024_aau_connectify/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_2024_aau_connectify/models/announcement_mode.dart';
 import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
+import 'package:flutter_2024_aau_connectify/repository/token.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part './announcement_event.dart';
@@ -24,9 +26,18 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
     try {
       final token = await _getToken();
       if (token == null) {
+        print('no token found');
         emit(NoTokenFound());
         return;
       }
+      TokenM tokenM = TokenM(token);
+      final isExpired = tokenM.isExpired();
+      if (isExpired) {
+        print('token expired');
+        emit(NoTokenFound());
+        return;
+      }
+      
 
       final announcements = await announcementRepository.getAnnouncements(
           event.page, event.limit, token);
@@ -68,6 +79,12 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
         emit(NoTokenFound());
         return;
       }
+      TokenM tokenM = TokenM(token);
+      final isExpired = tokenM.isExpired();
+      if (isExpired) {
+        emit(NoTokenFound());
+        return;
+      }
       final response = await announcementRepository.createAnnouncement(
           event.title,
           event.content,
@@ -96,6 +113,12 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
     try {
       final token = await _getToken();
       if (token == null  ) {
+        emit(NoTokenFound());
+        return;
+      }
+      TokenM tokenM = TokenM(token);
+      final isExpired = tokenM.isExpired();
+      if (isExpired) {
         emit(NoTokenFound());
         return;
       }
@@ -131,6 +154,12 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
         emit(NoTokenFound());
         return;
       }
+      TokenM tokenM = TokenM(token);
+      final isExpired = tokenM.isExpired();
+      if (isExpired) {
+        emit(NoTokenFound());
+        return;
+      }
       final response =
           await announcementRepository.deleteAnnouncementById(event.id, token);
       if (response['success']) {
@@ -145,6 +174,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
       emit(AnnouncementOperationFailure(e.toString()));
     }
   }
+ 
 
   Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -157,4 +187,5 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
     print('$event is the event that was called');
     super.onEvent(event);
   }
+  
 }

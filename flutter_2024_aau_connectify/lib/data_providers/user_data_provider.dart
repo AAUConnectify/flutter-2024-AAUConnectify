@@ -124,4 +124,24 @@ class UserDataProvider {
       throw e.toString();
     }
   }
+   Future<Map>  getProfle(String token) async {
+    try {
+      Map<String, String> headers = {'Authorization': 'Bearer $token ', 'Content-Type': 'application/json',};
+      Uri url = Uri.parse('${APIEndpoints.baseUrl}${APIEndpoints.getProfile}');
+      final response = await http.get(url, headers: headers);
+      if (response.statusCode == 200) {
+        final body = jsonDecode(response.body);
+        return {'success': true, 'body': body};
+      } else {
+        return {
+          'success': false,
+          'message': 'Failed to get profile',
+          'body': response.body
+        };
+        
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Failed to get profile'};
+    }
+  }
 }

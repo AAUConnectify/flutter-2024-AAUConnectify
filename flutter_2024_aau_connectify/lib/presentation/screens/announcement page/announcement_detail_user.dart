@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/bloc/comment_bloc/comment_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
@@ -13,19 +14,19 @@ class AnnouncementDetailUser extends StatelessWidget {
   const AnnouncementDetailUser({super.key, required this.id});
   @override
   Widget build(BuildContext context) {
-    print('AnnouncementDetailUser build');
     return Scaffold(
       appBar: AppBar(
-        title: const Text("post detail"), leading: IconButton(onPressed: (){
-          context.go(homeRoute);
-        }, icon: const Icon(Icons.arrow_back_ios )),
-        
+        title: const Text("post detail"),
+        leading: IconButton(
+            onPressed: () {
+              context.go(homeRoute);
+            },
+            icon: const Icon(Icons.arrow_back_ios)),
       ),
       body: ListView(
         children: [
           BlocBuilder<AnnouncementBloc, AnnouncementState>(
             builder: (context, state) {
-         
               if (state is SingleAnnouncementLoaded) {
                 final data = state.announcement;
                 return Expanded(
@@ -88,7 +89,9 @@ class AnnouncementDetailUser extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // Add your logic for posting a comment here
+                BlocProvider.of<CommentBloc>(context).add(
+                  CreateComment('This is a comment from the user. on the land of bad', id),
+                );
               },
               child: const Text('Post Comment'),
             ),
@@ -97,8 +100,8 @@ class AnnouncementDetailUser extends StatelessWidget {
             children: [
               ListTile(
                 leading: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
+                  backgroundImage: NetworkImage(
+                      'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
                 ),
                 title: Text('John Doe'),
                 subtitle: Text('This is a comment from the user.'),
@@ -110,8 +113,8 @@ class AnnouncementDetailUser extends StatelessWidget {
             children: [
               const ListTile(
                 leading: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
+                  backgroundImage: NetworkImage(
+                      'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
                 ),
                 title: Text('John Doe'),
                 subtitle: Text('This is a comment from the user.'),
@@ -142,8 +145,8 @@ class AnnouncementDetailUser extends StatelessWidget {
             children: [
               ListTile(
                 leading: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
+                  backgroundImage: NetworkImage(
+                      'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
                 ),
                 title: Text('John Doe'),
                 subtitle: Text('This is a comment from the user.'),

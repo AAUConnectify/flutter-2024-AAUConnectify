@@ -74,10 +74,9 @@ Route<dynamic> controller(RouteSettings settings) {
 */
 
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/bloc/role_bloc/role_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart'
     as screens;
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/update_announcement.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_3.dart';
 import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
@@ -87,7 +86,6 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_detail_user.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/landing_page.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/login_page.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/reset_password/reset_password.dart';
@@ -136,6 +134,7 @@ class AppRouter {
       GoRoute(
         path: homeRoute,
         builder: (context, state) {
+          BlocProvider.of<RoleBloc>(context).add( RoleStatus());
           return BlocProvider(
             create: (context) => AnnouncementBloc(
               announcementRepository: context.read<AnnouncementRepository>(),

@@ -18,3 +18,7 @@ final class UserPromote extends UserEvent{
   final String newRole = 'admin';
   const UserPromote(this.userID);
 }
+
+final class GetRole extends UserEvent{
+
+}

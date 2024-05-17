@@ -84,3 +84,5 @@ class FetchAnnouncementById extends AnnouncementEvent {
   @override
   List<Object> get props => [id];
 }
+
+

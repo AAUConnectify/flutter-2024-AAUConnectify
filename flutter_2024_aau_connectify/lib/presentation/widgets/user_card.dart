@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart';
 import 'package:flutter_2024_aau_connectify/bloc/user_bloc/user_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
@@ -48,11 +49,19 @@ class UserCard extends StatelessWidget {
             ],
           ),
           //add a full width button that says promote to admin
-          ElevatedButton(
-            onPressed: () {
-              BlocProvider.of<UserBloc>(context).add(UserPromote(id));
+          BlocBuilder<GeneralCubit, GeneralState>(
+            builder: (context, state) {
+              if (state is GeneralStats && state.role == 'superadmin') {
+                return ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<UserBloc>(context).add(UserPromote(id));
+                  },
+                  child: const Text('Promote to Admin'),
+                );
+              } else {
+                return Container();
+              }
             },
-            child: const Text('Promote to Admin'),
           ),
           const Divider(),
         ],
@@ -105,14 +114,22 @@ class AdminCard extends StatelessWidget {
             ],
           ),
           //add a full width button that says promote to admin
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.red),
-            ),
-            onPressed: () {
-              BlocProvider.of<UserBloc>(context).add(AdminDemote(id));
+          BlocBuilder<GeneralCubit, GeneralState>(
+            builder: (context, state) {
+              if (state is GeneralStats && state.role == 'superadmin') {
+                return ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                  ),
+                  onPressed: () {
+                    BlocProvider.of<UserBloc>(context).add(AdminDemote(id));
+                  },
+                  child: const Text('Demote to User'),
+                );
+              } else {
+                return Container();
+              }
             },
-            child: const Text('Demote to User'),
           ),
           const Divider(),
         ],

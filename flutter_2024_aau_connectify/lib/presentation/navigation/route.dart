@@ -79,6 +79,7 @@ import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20
     as screens;
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/update_announcement.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_3.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_4.dart';
 import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -103,6 +104,8 @@ const String signupRoute = '/landingpage_page/signup_page';
 const String signupRoute2 = '/landingpage_page/signup_page/signup_page2';
 const String signupRoute3 =
     '/landingpage_page/signup_page/signup_page2/signup_page3';
+const String signupRoute4 =
+    '/landingpage_page/signup_page/signup_page2/signup_page3/signup_page4';
 const String landingpageRoute = '/landingpage_page';
 const String announcementUser = '/Announcement_user_page';
 const String profileUser = '/profile_user_page';
@@ -170,6 +173,12 @@ class AppRouter {
           final email =
               (state.extra as Map<String, dynamic>)['email'] as String? ?? '';
           return SignUp3(email: email);
+        },
+      ),
+      GoRoute(
+        path: signupRoute4,
+        builder: (context, state) {
+          return ProfilePage();
         },
       ),
       GoRoute(

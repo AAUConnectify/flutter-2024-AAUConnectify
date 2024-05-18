@@ -17,22 +17,25 @@ class AdminPage extends StatelessWidget {
   AdminPage({super.key});
   final List<BottomNavigationBarItem> _bottomNavBarItems = [
     const BottomNavigationBarItem(
+      key: Key('manage_announcement'),
       icon: Icon(Icons.admin_panel_settings),
       label: 'Manage',
     ),
     const BottomNavigationBarItem(
+      key: Key('manage_users_page'),
       icon: Icon(Icons.manage_accounts),
       label: 'Users',
     ),
     const BottomNavigationBarItem(
+      key: Key('manage_admins_page'),
       icon: Icon(Icons.assignment_ind_outlined),
       label: 'Admin',
     ),
   ];
   final _pages = [
     const ManageAnnouncement(),
-    ManageUsers(),
-    ManageAdmins(),
+    const ManageUsers(),
+    const ManageAdmins(),
   ];
   @override
   Widget build(BuildContext context) {

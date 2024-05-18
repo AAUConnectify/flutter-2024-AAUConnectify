@@ -22,6 +22,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
     emit(CommentLoading());
     try {
       final response = await commentRepository.fetchComments(event.announcementId);
+      print(response);
       if (response['success']) {
         emit(CommentLoaded(response['comment']));
       } else {
@@ -47,11 +48,11 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
   }
 
   Future<void> _onUpdateComment(UpdateComment event, Emitter<CommentState> emit) async {
-    emit(CommentLoading());
+    emit(CommentUpdating());
     try {
       final response = await commentRepository.updateComment(event.commentId, event.content, event.announcementId);
       if (response['success']) {
-        emit(CommentOperationSuccess());
+        emit(CommentUpdated());
       } else {
         emit(CommentOperationFailure(response['message']));
       }
@@ -61,7 +62,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
   }
 
   Future<void> _onDeleteComment(DeleteComment event, Emitter<CommentState> emit) async {
-    emit(CommentLoading());
+    emit(CommentDeleting());
     try {
       final response = await commentRepository.deleteComment(event.commentId);
       if (response['success']) {

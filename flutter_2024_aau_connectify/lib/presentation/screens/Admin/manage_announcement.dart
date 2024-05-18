@@ -104,6 +104,7 @@ class ManageAnnouncement extends StatelessWidget {
             right: 20,
             bottom: 20,
             child: FloatingActionButton(
+              key: const Key('create_announcement_button'),
               onPressed: () {
                 context.go(createAnnouncementRoute);
               },

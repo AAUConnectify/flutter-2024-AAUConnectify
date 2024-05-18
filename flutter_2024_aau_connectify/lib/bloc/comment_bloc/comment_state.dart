@@ -40,3 +40,8 @@ class CommentOperationFailure extends CommentState {
 
 final class CommentPosting extends CommentState {}
 
+final class CommentUpdating extends CommentState {}
+final class CommentUpdated extends CommentState {}
+
+final class CommentDeleting extends CommentState {}
+

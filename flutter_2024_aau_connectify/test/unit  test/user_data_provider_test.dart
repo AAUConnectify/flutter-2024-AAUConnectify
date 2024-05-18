@@ -28,7 +28,7 @@ void main() {
     test('createStudent should return a valid response', () async {
       // Arrange
       final userDataProvider = UserDataProvider();
-      const studentId = 'ugr/9999/14';
+      const studentId = 'ugr/2324/14';
       const password = 'pass';
 
       // Act

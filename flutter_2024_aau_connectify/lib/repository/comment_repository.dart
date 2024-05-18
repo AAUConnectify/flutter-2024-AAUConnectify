@@ -29,6 +29,7 @@ class CommentRepository {
       final commentsData = jsonDecode(response['body']);
       List<Comment> comments = [];
       for (var comment in commentsData) {
+        print(comment);
         comments.add(Comment.fromMap(comment));
       }
 
@@ -64,12 +65,7 @@ class CommentRepository {
         commentId, content, token, userId, announcementId);
     if (response['success']) {
       final commentsData = jsonDecode(response['body']);
-      List<Comment> comments = [];
-      for (var comment in commentsData) {
-        comments.add(Comment.fromMap(comment));
-      }
-
-      return {'success': true, 'comment': comments};
+      return {'success': true, 'comment': commentsData};
     } else {
       return {'success': false, 'message': response['message']};
     }
@@ -81,6 +77,8 @@ class CommentRepository {
       return {'success': false, 'message': 'Token not found'};
     }
     final response = await dataProvider.deleteComment(commentId, token);
+
+    print('comment id $commentId');
     if (response['success']) {
       return {'success': true, 'message': 'Comment deleted successfully'};
     } else {

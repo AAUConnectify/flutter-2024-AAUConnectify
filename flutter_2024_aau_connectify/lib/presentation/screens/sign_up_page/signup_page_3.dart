@@ -25,7 +25,7 @@ class SignUp3 extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state is AuthenticationEmailVerified) {
-          context.go(homeRoute);
+          context.go(signupRoute4);
         }
         if (state is AuthenticationFailure) {
           ScaffoldMessenger.of(context).showSnackBar(

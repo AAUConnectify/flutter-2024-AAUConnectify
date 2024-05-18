@@ -33,6 +33,7 @@ class Home extends StatelessWidget {
       label: 'Profile',
     ),
     const BottomNavigationBarItem(
+      key: Key('admin_page'),
       icon: Icon(Icons.admin_panel_settings),
       label: 'Admin',
     ),

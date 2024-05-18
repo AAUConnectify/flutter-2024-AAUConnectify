@@ -33,6 +33,7 @@ class AnnouncementManagementTile extends StatelessWidget {
             onPressed: onEdit,
           ),
           IconButton(
+            key: const Key('delete_announcement'),
             icon: const Icon(Icons.delete),
             onPressed: onDelete,
             color: CustomColors.errorColor,

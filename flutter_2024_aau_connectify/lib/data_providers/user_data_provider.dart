@@ -116,17 +116,20 @@ class UserDataProvider {
 
       if (responce.statusCode == 200) {
         return {'body': responce.body, 'success': true};
-      } else
-       {
+      } else {
         return {'body': responce.body, 'success': false};
       }
     } catch (e) {
       throw e.toString();
     }
   }
-   Future<Map>  getProfle(String token) async {
+
+  Future<Map> getProfle(String token) async {
     try {
-      Map<String, String> headers = {'Authorization': 'Bearer $token ', 'Content-Type': 'application/json',};
+      Map<String, String> headers = {
+        'Authorization': 'Bearer $token ',
+        'Content-Type': 'application/json',
+      };
       Uri url = Uri.parse('${APIEndpoints.baseUrl}${APIEndpoints.getProfile}');
       final response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
@@ -138,10 +141,46 @@ class UserDataProvider {
           'message': 'Failed to get profile',
           'body': response.body
         };
-        
       }
     } catch (e) {
       return {'success': false, 'message': 'Failed to get profile'};
+    }
+  }
+
+  /* {
+  "fullName": "John Doe",
+  "fieldOfStudy": "Computer Science",
+  "bio": "This is a bio",
+  "profilePicture": "http://example.com/profile.jpg"
+} */
+
+  Future<Map> createProfile(String token, String fullName, String fieldOfStudy, String bio, String profilePicture ) async {
+    try {
+      Map<String, String> headers = {
+        'Authorization': 'Bearer $token ',
+        'Content-Type': 'application/json',
+      };
+
+      String body = jsonEncode({
+        'fullName': fullName,
+        'fieldOfStudy': fieldOfStudy,
+        'bio': bio,
+        'profilePicture': profilePicture
+      });
+      Uri url = Uri.parse('${APIEndpoints.baseUrl}${APIEndpoints.createProfile}');
+      final response = await http.post(url, headers: headers, body: body);
+      if (response.statusCode == 201) {
+        final body = jsonDecode(response.body);
+        return {'success': true, 'body': body};
+      } else {
+        return {
+          'success': false,
+          'message': 'Failed to create profile',
+          'body': response.body
+        };
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Failed to create profile'};
     }
   }
 }

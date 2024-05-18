@@ -44,22 +44,22 @@ class UserRepository {
   }
 
   //verify USER EMAIL
-  Future<bool> verifyUserEmail(String email, String verificationCode) async {
+  Future<Map> verifyUserEmail(String email, String verificationCode) async {
     try {
       final response =
           await userDataProvider.verifyEmail(email, verificationCode);
       if (response['statusCode'] < 200 || response['statusCode'] > 300)
-        return false;
+        return {'success': false, 'message': 'Failed to verify email'};
 
       final data = jsonDecode(response['body']);
 
       if (data['message'] != 'Email verified successfully.') {
-        return false;
+        return {'success': false, 'message': 'Failed to verify email'};
       }
 
-      return true;
+      return {'success': true, 'body': data};
     } catch (e) {
-      return false;
+      return {'success': false, 'message': 'Failed to verify email'};
     }
   }
 
@@ -115,6 +115,21 @@ class UserRepository {
       return {'success': true, 'user': data};
     } catch (e) {
       return {'success': false, 'message': 'Failed to change the role'};
+    }
+  }
+
+  Future<Map> createProfile(String token, String fullName, String fieldOfStudy,
+      String bio, String profilePicture) async {
+    try {
+      final response = await userDataProvider.createProfile(
+          token, fullName, fieldOfStudy, bio, profilePicture);
+      if (response['success'] == false) {
+        return {'success': false, 'message': 'Failed to create Profile'};
+      }
+      final data = response['body'];
+      return {'success': true, 'user': data['profile']};
+    } catch (e) {
+      return {'success': false, 'message': 'Failed to create the profile'};
     }
   }
 }

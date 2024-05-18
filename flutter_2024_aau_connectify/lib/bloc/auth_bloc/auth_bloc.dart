@@ -27,6 +27,10 @@ Future<void> saveToken(String token, Profile user) async {
   await prefs.setString('auth_token', token);
   await prefs.setString('user_id', user.user);
 }
+Future<void> saveTokenOnly(String token) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('auth_token', token);
+}
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -41,6 +45,7 @@ class AuthenticationBloc
     on<VerifyEmail>(_onVerifyEmail);
     on<CheckStudent>(_onCheckStudent);
     on<GetUserDetails>(_onGetUserDetails);
+    on<CreateProfile>(_createProfile);
   }
 
   Future<void> _onAppStarted(
@@ -110,8 +115,11 @@ class AuthenticationBloc
     try {
       final success =
           await userRepository.verifyUserEmail(event.email, event.code);
-      if (success) {
+      if (success['success']) {
+
+        await saveTokenOnly(success['body']['token']);
         emit(AuthenticationEmailVerified());
+        return; 
       } else {
         emit(const AuthenticationFailure(error: 'Email verification failed'));
       }
@@ -161,6 +169,26 @@ class AuthenticationBloc
         userData.add(User.fromMap(value));
       }
       emit(UserDetailLoaded(user: userData));
+    } catch (e) {
+      emit(UserLoadFailure(error: e.toString()));
+    }
+  }
+  Future<void> _createProfile(
+      CreateProfile event, Emitter<AuthenticationState> emit) async {
+    emit(AuthenticationLoading());
+    try {
+      final token = await getToken();
+      if (token == null) {
+        emit(AuthenticationUnauthenticated());
+        return;
+      }
+
+      final user = await userRepository.createProfile(token, event.fullName, event.fieldOfStudy, event.bio, event.profilePicture);
+      if (user['success'] == false) {
+        emit(const UserLoadFailure(error: 'Failed to create profile'));
+        return;
+      }    
+      emit(AuthenticationEmailVerified());
     } catch (e) {
       emit(UserLoadFailure(error: e.toString()));
     }

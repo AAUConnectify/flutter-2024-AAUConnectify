@@ -74,6 +74,7 @@ class CreateAnnouncement extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Create Announcement'),
           leading: IconButton(
+            key: const Key('back_button_from_create_announcement'),
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               context.go(homeRoute);
@@ -89,6 +90,7 @@ class CreateAnnouncement extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: CustomPaddings.small),
                   child: TextField(
+                    key:const Key('title_field') ,
                     controller: titleController,
                     decoration: const InputDecoration(
                       labelText: 'Title',
@@ -101,6 +103,7 @@ class CreateAnnouncement extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: CustomPaddings.small),
                   child: TextField(
+                    key: const Key('date_field'),
                     controller: dateController,
                     decoration: InputDecoration(
                         labelText: 'Date',
@@ -136,6 +139,7 @@ class CreateAnnouncement extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: CustomPaddings.small),
                   child: TextField(
+                    key: const Key('summery_field'),
                     controller: summeryController,
                     decoration: const InputDecoration(
                       labelText: 'Summery',
@@ -147,6 +151,7 @@ class CreateAnnouncement extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: CustomPaddings.small),
                   child: TextFormField(
+                    key: const Key('content_field'),
                     controller: contentController,
                     decoration: const InputDecoration(
                       labelText: 'Content',
@@ -158,6 +163,7 @@ class CreateAnnouncement extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: CustomPaddings.small),
                   child: TextField(
+                    key: const Key('image_field'),
                     controller: imageController,
                     decoration: const InputDecoration(
                       labelText: 'Image',
@@ -187,6 +193,7 @@ class CreateAnnouncement extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 12.0, horizontal: 12),
                   child: ElevatedButton(
+                    key: const Key('finish_create_announcement_button'),
                     style: ButtonStyle(
                         textStyle: MaterialStatePropertyAll(
                             Theme.of(context).textTheme.titleLarge!),

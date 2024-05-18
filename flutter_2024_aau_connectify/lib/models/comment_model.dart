@@ -12,24 +12,29 @@ class Comment {
   final String content;
   final String userId;
   final String announcementId;
+  final String fullName; 
   Comment({
     required this.id,
     required this.content,
     required this.userId,
     required this.announcementId,
+    required this.fullName,
   });
+  
 
   Comment copyWith({
     String? id,
     String? content,
     String? userId,
     String? announcementId,
+    String? fullName,
   }) {
     return Comment(
       id: id ?? this.id,
       content: content ?? this.content,
       userId: userId ?? this.userId,
       announcementId: announcementId ?? this.announcementId,
+      fullName: fullName ?? this.fullName,
     );
   }
 
@@ -40,6 +45,7 @@ class Comment {
     result.addAll({'content': content});
     result.addAll({'userId': userId});
     result.addAll({'announcementId': announcementId});
+    result.addAll({'fullName': fullName});
   
     return result;
   }
@@ -48,8 +54,9 @@ class Comment {
     return Comment(
       id: map['_id'] ?? '',
       content: map['content'] ?? '',
-      userId: map['userId'] ?? '',
+      userId: map['userId']['_id'] ?? '',
       announcementId: map['announcementId'] ?? '',
+      fullName: map['userId']['fullName'] ?? '',
     );
   }
 
@@ -59,7 +66,7 @@ class Comment {
 
   @override
   String toString() {
-    return 'Comment(id: $id, content: $content, userId: $userId, announcementId: $announcementId)';
+    return 'Comment(id: $id, content: $content, userId: $userId, announcementId: $announcementId, fullName: $fullName)';
   }
 
   @override
@@ -70,7 +77,8 @@ class Comment {
       other.id == id &&
       other.content == content &&
       other.userId == userId &&
-      other.announcementId == announcementId;
+      other.announcementId == announcementId &&
+      other.fullName == fullName;
   }
 
   @override
@@ -78,6 +86,7 @@ class Comment {
     return id.hashCode ^
       content.hashCode ^
       userId.hashCode ^
-      announcementId.hashCode;
+      announcementId.hashCode ^
+      fullName.hashCode;
   }
 }

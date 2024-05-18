@@ -16,6 +16,7 @@ void main() {
         content: 'content',
         announcementId: 'announcementId',
         userId: 'userId',
+        fullName: 'fullName',
       )
     ];
     final Map commentData = {'success': true, 'comment': comments};

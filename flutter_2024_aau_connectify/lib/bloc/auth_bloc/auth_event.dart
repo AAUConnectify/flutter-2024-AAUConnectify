@@ -65,3 +65,38 @@ class CheckStudent extends AuthenticationEvent {
 }
 
 class GetUserDetails extends AuthenticationEvent{}
+
+class UpdateUserDetails extends AuthenticationEvent{
+  final String fullName;
+  final String fieldOfStudy;
+  final String bio;
+  final String profilePicture;
+
+  const UpdateUserDetails({
+    required this.fullName,
+    required this.fieldOfStudy,
+    required this.bio,
+    required this.profilePicture,
+  });
+
+  @override
+  List<Object> get props => [fullName, fieldOfStudy, bio, profilePicture];
+}
+
+
+class CreateProfile extends AuthenticationEvent{
+  final String fullName;
+  final String fieldOfStudy;
+  final String bio;
+  final String profilePicture;
+
+  const CreateProfile({
+    required this.fullName,
+    required this.fieldOfStudy,
+    required this.bio,
+    required this.profilePicture,
+  });
+
+  @override
+  List<Object> get props => [ fullName, fieldOfStudy, bio, profilePicture];
+}

@@ -10,6 +10,7 @@ import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_description_card.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_detail_image_card.dart';
+import 'package:flutter_2024_aau_connectify/presentation/widgets/edit_popup.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -95,7 +96,28 @@ class AnnouncementDetailUser extends StatelessWidget {
                     ),
                   );
                 }
+                if (state is CommentUpdating){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Comment updating...'),
+                      duration: Duration(seconds: 2),
+                      backgroundColor: CustomColors.textGrey,
+                    ),
+                  );
+                }
+                if (state is CommentUpdated) {
+                  BlocProvider.of<CommentBloc>(context).add(FetchComments(id));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Comment updated successfully'),
+                      duration: Duration(seconds: 2),
+                      backgroundColor: CustomColors.primaryColor,
+                    ),
+                  );
+                }
+
                 if (state is CommentOperationSuccess) {
+                  BlocProvider.of<CommentBloc>(context).add(FetchComments(id));
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Comment posted successfully'),
@@ -110,6 +132,25 @@ class AnnouncementDetailUser extends StatelessWidget {
                       content: Text((state).error),
                       duration: const Duration(seconds: 2),
                       backgroundColor: CustomColors.errorColor,
+                    ),
+                  );
+                }
+                if (state is CommentDeleted) {
+                  BlocProvider.of<CommentBloc>(context).add(FetchComments(id));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Comment deleted successfully'),
+                      duration: Duration(seconds: 1),
+                      backgroundColor: CustomColors.primaryColor,
+                    ),
+                  );
+                }
+                if (state is CommentDeleting) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Comment deleting...'),
+                      duration: Duration(seconds: 1),
+                      backgroundColor: CustomColors.textGrey,
                     ),
                   );
                 }
@@ -139,11 +180,18 @@ class AnnouncementDetailUser extends StatelessWidget {
               if (state is CommentLoading) {
                 return const Center(child: CircularProgressIndicator());
               }
+              if (state is CommentPosting || state is CommentDeleting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
               if (state is CommentLoaded) {
                 final List<Comment> commentsData = state.comments;
                 if (commentsData.isEmpty) {
-                  return const Center(
-                    child: Text('No comments found. Be the first to comment!'),
+                  return Center(
+                    child: Text(
+                      'No comments found. Be the first to comment!',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   );
                 }
                 return SizedBox(
@@ -158,35 +206,48 @@ class AnnouncementDetailUser extends StatelessWidget {
                                 backgroundImage: NetworkImage(
                                     'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
                               ),
-                              title: const Text('John Doe'),
+                              title: Text(commentsData[index].fullName),
                               subtitle: Text(commentsData[index].content),
                             ),
                             //Show edit and delete button only if the comment is made by the user
                             commentsData[index].userId !=
-                                    context.read<GeneralCubit>().userid
+                                    context.watch<GeneralCubit>().userid
                                 ? Container()
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      //edit button
-                                      ElevatedButton(
-                                        onPressed: () {},
-                                        child: const Text('Edit'),
-                                      ),
-                                      //delete button
-                                      ElevatedButton(
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .error),
+                                : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        //edit button
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            showCommentEdit(context,
+                                                commentId:commentsData[index].id,
+                                                announcementId: id,
+                                                comment: commentsData[index].content);
+                                          },
+                                          child: const Text('Edit'),
                                         ),
-                                        onPressed: () {},
-                                        child: const Text('Delete'),
-                                      ),
-                                    ],
+                                        //delete button
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .error),
+                                          ),
+                                          onPressed: () {
+                                            BlocProvider.of<CommentBloc>(
+                                                    context)
+                                                .add(DeleteComment(
+                                                    commentsData[index].id));
+                                          },
+                                          child: const Text('Delete'),
+                                        ),
+                                      ],
+                                    ),
                                   )
                           ],
                         );

@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_2024_aau_connectify/bloc/user_bloc/user_bloc.dart';
-import 'package:flutter_2024_aau_connectify/models/announcement_mode.dart';
-import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
-import 'package:flutter_2024_aau_connectify/repository/token.dart';
+import 'package:flutter_2024_aau_connectify/application/user/user_bloc.dart';
+import 'package:flutter_2024_aau_connectify/Domain/announcement_mode.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/announcement_repository.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/token.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-part './announcement_event.dart';
-part './announcement_state.dart';
+part 'announcement_event.dart';
+part 'announcement_state.dart';
 
 class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
   final AnnouncementRepository announcementRepository;

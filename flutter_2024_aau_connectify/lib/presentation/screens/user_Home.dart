@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart';
-import 'package:flutter_2024_aau_connectify/bloc/role_bloc/role_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/announcement/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/generalcubit/general_cubit.dart';
+import 'package:flutter_2024_aau_connectify/application/role/role_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/Admin/admin.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/profile/user_profile.dart';

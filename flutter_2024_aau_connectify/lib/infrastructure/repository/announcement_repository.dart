@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_2024_aau_connectify/data_providers/announcement_data_provider.dart';
-import 'package:flutter_2024_aau_connectify/models/announcement_mode.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/data_providers/announcement_data_provider.dart';
+import 'package:flutter_2024_aau_connectify/Domain/announcement_mode.dart';
 
 class AnnouncementRepository {
   final AnnouncementDataProvider dataProvider;

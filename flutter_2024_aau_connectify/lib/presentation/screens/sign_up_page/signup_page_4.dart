@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/bloc/auth_bloc/auth_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/auth/auth_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/text_field.dart';

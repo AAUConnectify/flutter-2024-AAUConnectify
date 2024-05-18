@@ -73,14 +73,14 @@ Route<dynamic> controller(RouteSettings settings) {
 }
 */
 
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/bloc/role_bloc/role_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/announcement/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/role/role_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart'
     as screens;
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/update_announcement.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_3.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_4.dart';
-import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/announcement_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/bloc/comment_bloc/comment_bloc.dart';
-import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart';
-import 'package:flutter_2024_aau_connectify/models/comment_model.dart';
+import 'package:flutter_2024_aau_connectify/application/announcement/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/comment/comment_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/generalcubit/general_cubit.dart';
+import 'package:flutter_2024_aau_connectify/Domain/comment_model.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';

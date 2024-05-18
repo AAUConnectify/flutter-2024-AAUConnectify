@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_2024_aau_connectify/data_providers/announcement_data_provider.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/data_providers/announcement_data_provider.dart';
 
 void main() {
   group('Announcement data provider test ', () {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/models/announcement_mode.dart';
+import 'package:flutter_2024_aau_connectify/application/announcement/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/Domain/announcement_mode.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';

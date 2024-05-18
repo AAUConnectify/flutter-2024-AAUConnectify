@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_2024_aau_connectify/bloc/comment_bloc/comment_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/comment/comment_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 

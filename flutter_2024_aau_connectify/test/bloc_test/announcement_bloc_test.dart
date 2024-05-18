@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/models/announcement_mode.dart';
-import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
+import 'package:flutter_2024_aau_connectify/application/announcement/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/Domain/announcement_mode.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/announcement_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

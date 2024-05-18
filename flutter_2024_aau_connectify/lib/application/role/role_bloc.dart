@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_2024_aau_connectify/repository/token.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'role_event.dart';

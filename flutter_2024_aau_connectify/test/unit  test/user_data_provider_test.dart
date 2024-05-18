@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_2024_aau_connectify/data_providers/user_data_provider.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/data_providers/user_data_provider.dart';
 
 void main() {
   group('UserDataProvider', () {

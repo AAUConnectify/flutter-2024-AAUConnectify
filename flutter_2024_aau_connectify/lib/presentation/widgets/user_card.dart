@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/bloc/generalcubit/general_cubit.dart';
-import 'package:flutter_2024_aau_connectify/bloc/user_bloc/user_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/generalcubit/general_cubit.dart';
+import 'package:flutter_2024_aau_connectify/application/user/user_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

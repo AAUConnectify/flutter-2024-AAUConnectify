@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_2024_aau_connectify/data_providers/comment_data_provider.dart';
-import 'package:flutter_2024_aau_connectify/models/comment_model.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/data_providers/comment_data_provider.dart';
+import 'package:flutter_2024_aau_connectify/Domain/comment_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CommentRepository {

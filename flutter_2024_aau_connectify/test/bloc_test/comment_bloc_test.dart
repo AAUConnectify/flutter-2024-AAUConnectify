@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_2024_aau_connectify/bloc/comment_bloc/comment_bloc.dart';
-import 'package:flutter_2024_aau_connectify/models/comment_model.dart';
-import 'package:flutter_2024_aau_connectify/repository/comment_repository.dart';
+import 'package:flutter_2024_aau_connectify/application/comment/comment_bloc.dart';
+import 'package:flutter_2024_aau_connectify/Domain/comment_model.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/comment_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_2024_aau_connectify/models/comment_model.dart';
-import 'package:flutter_2024_aau_connectify/repository/comment_repository.dart';
+import 'package:flutter_2024_aau_connectify/Domain/comment_model.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/comment_repository.dart';
 
 part 'comment_event.dart';
 part 'comment_state.dart';

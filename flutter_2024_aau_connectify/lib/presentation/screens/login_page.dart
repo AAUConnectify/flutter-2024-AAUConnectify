@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_2024_aau_connectify/bloc/auth_bloc/auth_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/auth/auth_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/user_Home.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';

@@ -1,7 +1,7 @@
 // profile page data used are , name , ID userName, Field Of study width button to edit profile
 
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/bloc/auth_bloc/auth_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/auth/auth_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/heights.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';

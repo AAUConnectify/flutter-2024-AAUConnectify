@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/bloc/auth_bloc/auth_bloc.dart';
-import 'package:flutter_2024_aau_connectify/bloc/user_bloc/user_bloc.dart';
-import 'package:flutter_2024_aau_connectify/models/user_model.dart';
+import 'package:flutter_2024_aau_connectify/application/announcement/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/auth/auth_bloc.dart';
+import 'package:flutter_2024_aau_connectify/application/user/user_bloc.dart';
+import 'package:flutter_2024_aau_connectify/Domain/user_model.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/user_card.dart';

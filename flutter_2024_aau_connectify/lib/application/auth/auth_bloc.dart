@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_2024_aau_connectify/models/user_model.dart';
-import 'package:flutter_2024_aau_connectify/repository/token.dart';
-import 'package:flutter_2024_aau_connectify/repository/user_repository.dart';
+import 'package:flutter_2024_aau_connectify/Domain/user_model.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/token.dart';
+import 'package:flutter_2024_aau_connectify/infrastructure/repository/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

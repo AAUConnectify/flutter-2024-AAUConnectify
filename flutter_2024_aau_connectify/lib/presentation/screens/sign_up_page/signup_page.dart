@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:flutter_2024_aau_connectify/application/auth/auth_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/radiuses.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart'
-    as route;
 import 'package:flutter_2024_aau_connectify/presentation/widgets/text_field.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -26,7 +25,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     final customtext = Theme.of(context).textTheme;
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return BlocConsumer<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state is AuthenticationStudentVerified) {
@@ -88,7 +87,7 @@ class _SignUpState extends State<SignUp> {
                   child: ListView(
                     children: [
                       Form(
-                        key: _formKey,
+                        key: formKey,
                         child: Column(
                           children: [
                             TextFieldCustom(
@@ -114,7 +113,7 @@ class _SignUpState extends State<SignUp> {
                         child: ElevatedButton(
                           onPressed: () {
                             debugPrint("pressed");
-                            if (_formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate()) {
                               // If the form is valid, display a Snackbar.
                               BlocProvider.of<AuthenticationBloc>(context).add(
                                   CheckStudent(

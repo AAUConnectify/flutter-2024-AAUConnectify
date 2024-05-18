@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_2024_aau_connectify/application/auth/auth_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/user_Home.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart'
-    as route;
 import 'package:flutter_2024_aau_connectify/presentation/widgets/text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class SignUp2 extends StatelessWidget {
-  String studentId;
-  String studentPassword;
+  final String studentId;
+  final String studentPassword;
   SignUp2({super.key, String? studentId, String? studentPassword})
       : studentPassword = studentPassword ?? '',
         studentId = studentId ?? '';

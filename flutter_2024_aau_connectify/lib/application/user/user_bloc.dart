@@ -74,14 +74,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(NoTokenFound());
         return;
       }
-      final role = tokenM.getRole();
+      tokenM.getRole();
       emit(const UserPromoteFailure('Failed to change role'));
     } catch (e) {
       emit(const UserPromoteFailure('Failed to change role'));
     }
   }
+  @override
   void onEvent(UserEvent event) {
-    print('$event is the event that was called');
+    print('$event is the event that was. called');
     super.onEvent(event);
   }
 }

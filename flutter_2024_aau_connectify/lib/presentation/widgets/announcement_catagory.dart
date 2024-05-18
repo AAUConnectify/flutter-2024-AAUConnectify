@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_2024_aau_connectify/application/generalcubit/general_cubit.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: constant_identifier_names
 const List<String> announcement_categories = [

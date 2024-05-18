@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/Domain/announcement_mode.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
-import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 
 class AnnouncementDescriptionCard extends StatelessWidget {
   final Announcement announcement;

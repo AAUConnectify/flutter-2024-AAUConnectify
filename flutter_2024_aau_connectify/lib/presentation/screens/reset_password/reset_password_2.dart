@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
+
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/heights.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
-import 'package:flutter_2024_aau_connectify/presentation/style/radiuses.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/widths.dart';
 

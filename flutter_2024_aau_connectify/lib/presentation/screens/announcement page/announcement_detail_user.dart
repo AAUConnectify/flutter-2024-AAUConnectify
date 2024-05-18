@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:flutter_2024_aau_connectify/Domain/comment_model.dart';
 import 'package:flutter_2024_aau_connectify/application/announcement/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/application/comment/comment_bloc.dart';
 import 'package:flutter_2024_aau_connectify/application/generalcubit/general_cubit.dart';
-import 'package:flutter_2024_aau_connectify/Domain/comment_model.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
@@ -11,13 +13,11 @@ import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_description_card.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_detail_image_card.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/edit_popup.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class AnnouncementDetailUser extends StatelessWidget {
   final String id;
   AnnouncementDetailUser({super.key, required this.id});
-  TextEditingController commentController = TextEditingController();
+  final TextEditingController commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<CommentBloc>(context).add(FetchComments(id));

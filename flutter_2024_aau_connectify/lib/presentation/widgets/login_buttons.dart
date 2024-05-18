@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginButtons extends StatelessWidget {
   final String login_route;
   final String signup_route;
+  // ignore: non_constant_identifier_names
   const LoginButtons({super.key, required this.login_route, required this.signup_route});
 
   @override

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_2024_aau_connectify/application/auth/auth_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/user_Home.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart'
-    as route;
 import 'package:flutter_2024_aau_connectify/presentation/widgets/text_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +15,6 @@ class SignUp3 extends StatelessWidget {
   final TextEditingController _verifyEmail = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
 
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {

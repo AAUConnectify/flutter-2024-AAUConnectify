@@ -1,17 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_2024_aau_connectify/application/generalcubit/general_cubit.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/Admin/manage_admins.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/Admin/manage_announcement.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/Admin/manage_users.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart';
-import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
-import 'package:flutter_2024_aau_connectify/presentation/widgets/user_card.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class AdminPage extends StatelessWidget {
   AdminPage({super.key});

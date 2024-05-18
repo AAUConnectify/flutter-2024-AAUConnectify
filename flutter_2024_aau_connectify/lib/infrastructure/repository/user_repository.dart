@@ -48,8 +48,8 @@ class UserRepository {
     try {
       final response =
           await userDataProvider.verifyEmail(email, verificationCode);
-      if (response['statusCode'] < 200 || response['statusCode'] > 300)
-        return {'success': false, 'message': 'Failed to verify email'};
+      if (response['statusCode'] < 200 || response['statusCode'] > 300){
+        return {'success': false, 'message': 'Failed to verify email'};}
 
       final data = jsonDecode(response['body']);
 

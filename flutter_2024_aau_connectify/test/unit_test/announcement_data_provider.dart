@@ -1,8 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_2024_aau_connectify/infrastructure/data_providers/announcement_data_provider.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockAnnouncementDataProvider extends Mock
+    implements AnnouncementDataProvider {}
+
+
 
 void main() {
   group('Announcement data provider test ', () {
+
+    
     test('create announcement should return a valid response', () async {
       // Arrange
       final announcementDataProvider = AnnouncementDataProvider();
@@ -13,7 +21,8 @@ void main() {
       const String date = '2024-05-30T15:07:31.394Z';
       const String image = 'image';
       const String tag = 'tag';
-      const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1YWQubW9oYW1tZWRAYTJzdi5vcmciLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTcxNTg0MjEsImV4cCI6MTcxNzE2MjAyMX0.MQ5PljuWyob5w1lB2lMsExlL5SUPQ1IZlq3VabviXg4'; // Replace with a valid token
+      const String token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1YWQubW9oYW1tZWRAYTJzdi5vcmciLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTcxNTg0MjEsImV4cCI6MTcxNzE2MjAyMX0.MQ5PljuWyob5w1lB2lMsExlL5SUPQ1IZlq3VabviXg4'; // Replace with a valid token
 
       // Act
       final response = await announcementDataProvider.createAnnouncement(
@@ -30,7 +39,6 @@ void main() {
       // Assert
       expect(response, isNotNull);
       print(response['body']);
-   
     });
 
     test('get announcements should return a valid response', () async {
@@ -38,7 +46,8 @@ void main() {
       final announcementDataProvider = AnnouncementDataProvider();
       const int page = 1;
       const int limit = 10;
-      const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1YWQubW9oYW1tZWRAYTJzdi5vcmciLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTcxNTg0MjEsImV4cCI6MTcxNzE2MjAyMX0.MQ5PljuWyob5w1lB2lMsExlL5SUPQ1IZlq3VabviXg4'; // Replace with a valid token
+      const String token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1YWQubW9oYW1tZWRAYTJzdi5vcmciLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTcxNTg0MjEsImV4cCI6MTcxNzE2MjAyMX0.MQ5PljuWyob5w1lB2lMsExlL5SUPQ1IZlq3VabviXg4'; // Replace with a valid token
 
       // Act
       final response = await announcementDataProvider.getAnnouncements(
@@ -104,7 +113,6 @@ void main() {
       expect(response['body'], isNotNull);
     });
 
-
     test('get announcement by id should return a valid response', () async {
       // Arrange
       final announcementDataProvider = AnnouncementDataProvider();
@@ -120,10 +128,8 @@ void main() {
 
       // Assert
       expect(response, isNotNull);
-   /*    expect(response['success'], isFalse);
+      /*    expect(response['success'], isFalse);
       expect(response['body'], isNotNull); */
     });
-
-
   });
 }

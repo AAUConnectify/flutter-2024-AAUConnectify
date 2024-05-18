@@ -57,7 +57,7 @@ void main() {
       },
       act: (bloc) => bloc.add(const DeleteComment('1')),
       expect: () => <CommentState>[
-        CommentLoading(),
+        CommentDeleting(),
         CommentDeleted(),
       ],
     );
@@ -70,7 +70,7 @@ void main() {
       },
       act: (bloc) => bloc.add(const DeleteComment('1')),
       expect: () => <CommentState>[
-        CommentLoading(),
+        CommentDeleting(),
         const CommentOperationFailure('Error message'),
       ],
     );

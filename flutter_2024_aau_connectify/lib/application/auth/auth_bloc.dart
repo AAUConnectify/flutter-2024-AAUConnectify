@@ -10,12 +10,14 @@ part 'auth_state.dart';
 Future<void> removeToken() async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.remove('auth_token');
+  await prefs.remove('user_id');
 }
 
 Future<String?> getToken() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getString('auth_token');
 }
+
 Future<String?> getRole() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getString('role');
@@ -26,6 +28,7 @@ Future<void> saveToken(String token, Profile user) async {
   await prefs.setString('auth_token', token);
   await prefs.setString('user_id', user.user);
 }
+
 Future<void> saveTokenOnly(String token) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('auth_token', token);
@@ -65,11 +68,11 @@ class AuthenticationBloc
       print('response is $response');
       if (response['success']) {
         final profile = await userRepository.getProfile(response['token']);
-                print('profile is $profile');
+        print('profile is $profile');
 
         Profile user = Profile.fromMap(profile['user']['profile']);
         if (profile['success']) {
-          await saveToken(response['token' ], user);
+          await saveToken(response['token'], user);
         }
         emit(AuthenticationAuthenticated(token: response['token']));
       } else {
@@ -115,10 +118,9 @@ class AuthenticationBloc
       final success =
           await userRepository.verifyUserEmail(event.email, event.code);
       if (success['success']) {
-
         await saveTokenOnly(success['body']['token']);
         emit(AuthenticationEmailVerified());
-        return; 
+        return;
       } else {
         emit(const AuthenticationFailure(error: 'Email verification failed'));
       }
@@ -172,6 +174,7 @@ class AuthenticationBloc
       emit(UserLoadFailure(error: e.toString()));
     }
   }
+
   Future<void> _createProfile(
       CreateProfile event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
@@ -182,16 +185,18 @@ class AuthenticationBloc
         return;
       }
 
-      final user = await userRepository.createProfile(token, event.fullName, event.fieldOfStudy, event.bio, event.profilePicture);
+      final user = await userRepository.createProfile(token, event.fullName,
+          event.fieldOfStudy, event.bio, event.profilePicture);
       if (user['success'] == false) {
         emit(const UserLoadFailure(error: 'Failed to create profile'));
         return;
-      }    
+      }
       emit(AuthenticationEmailVerified());
     } catch (e) {
       emit(UserLoadFailure(error: e.toString()));
     }
   }
+
   void onEvent(AuthenticationEvent event) {
     print('$event is the event that was called');
     super.onEvent(event);

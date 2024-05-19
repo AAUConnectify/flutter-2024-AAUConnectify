@@ -422,6 +422,32 @@ void main() {
           .tap(find.byKey(const Key('back_button_from_create_announcement')));
       await tester.pumpAndSettle();
       print('Navigated back from create announcement');
+      await tester.tap(find.byKey(const Key('create_announcement_button')));
+      await tester.pumpAndSettle();
+      await Future.delayed(const Duration(seconds: 2));
+      print('Creating announcement');
+
+      // Enter the title, date, summary, content, and image
+      await tester.enterText(find.byKey(const Key('title_field')),
+          'This is Title from Integration Test');
+      await tester.enterText(find.byKey(const Key('date_field')), '2022-12-12');
+      await tester.enterText(find.byKey(const Key('summery_field')),
+          'This is Summary from Integration Test');
+      await tester.enterText(find.byKey(const Key('content_field')),
+          'This is Content from Integration Test');
+      await tester.enterText(find.byKey(const Key('image_field')),
+          'https://testsigma.com/blog/wp-content/uploads/In-article-MC410.jpg');
+      await tester
+          .tap(find.byKey(const Key('finish_create_announcement_button')));
+      await tester.pumpAndSettle();
+      await Future.delayed(const Duration(seconds: 2));
+      print('Announcement created');
+
+      // Go back to manage announcement
+      await tester
+          .tap(find.byKey(const Key('back_button_from_create_announcement')));
+      await tester.pumpAndSettle();
+      print('Navigated back from create announcement');
 
       // Go to manage users
       await tester.tap(find.byKey(const Key('manage_users_page')));

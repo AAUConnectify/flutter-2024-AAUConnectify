@@ -43,20 +43,20 @@ class Home extends StatelessWidget {
   List<Widget> pageAdmins = [
     const AnnouncementUserPage(),
     const ProfileUser(
-        name: 'John Doe',
-        id: '123456',
-        userName: 'johndoe',
-        fieldOfStudy: 'Computer Science',
+        name: 'Emran Yonas',
+        id: 'UGR/9999/00',
+        userName: 'EmranYonas',
+        fieldOfStudy: 'CS',
         image: 'assets/images/background_3.jpeg'),
     AdminPage()
   ];
   List<Widget> pageUser = [
     const AnnouncementUserPage(),
     const ProfileUser(
-        name: 'John Doe',
-        id: '123456',
-        userName: 'johndoe',
-        fieldOfStudy: 'Computer Science',
+        name: 'Emran Yonas',
+        id: 'UGR/9999/00',
+        userName: 'EmranYonas',
+        fieldOfStudy: 'CS',
         image: 'assets/images/background_3.jpeg'),
     const Placeholder()
   ];

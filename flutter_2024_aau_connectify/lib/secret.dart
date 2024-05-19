@@ -1,5 +1,5 @@
 class APIEndpoints {
-  static const String baseUrl = 'https://aau-connectivity.onrender.com';
+  static const String baseUrl = 'http://localhost:3000';
 
   static const String checkStudent = '/students/check';
   static const String createStudent = '/students';

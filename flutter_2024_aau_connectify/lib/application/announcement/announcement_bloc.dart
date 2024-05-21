@@ -8,7 +8,7 @@ part 'announcement_event.dart';
 part 'announcement_state.dart';
 
 class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
-  final AnnouncementRepository announcementRepository
+  final AnnouncementRepository announcementRepository;
 
   AnnouncementBloc({required this.announcementRepository})
       : super(AnnouncementInitial()) {
@@ -36,7 +36,6 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
         emit(NoTokenFound());
         return;
       }
-      
 
       final announcements = await announcementRepository.getAnnouncements(
           event.page, event.limit, token);
@@ -100,7 +99,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
       } else {
         emit(const AnnouncementOperationFailure(
             'Failed to create announcement'));
-      } 
+      }
     } catch (e) {
       emit(const AnnouncementOperationFailure('Failed to create announcement'));
     }
@@ -111,7 +110,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
     emit(AnnouncementLoading());
     try {
       final token = await _getToken();
-      if (token == null  ) {
+      if (token == null) {
         emit(NoTokenFound());
         return;
       }
@@ -131,7 +130,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
           event.image,
           event.tag,
           token);
-       if (response['success']) {
+      if (response['success']) {
         emit(AnnouncementOperationSuccess());
       } else if (response['logout']) {
         emit(NoTokenFound());
@@ -173,7 +172,6 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
       emit(const AnnouncementOperationFailure('Failed to delete announcement'));
     }
   }
- 
 
   Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -186,5 +184,4 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
     print('$event is the event that was called');
     super.onEvent(event);
   }
-  
 }

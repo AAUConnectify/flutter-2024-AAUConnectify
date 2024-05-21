@@ -4,7 +4,7 @@ sealed class CommentEvent extends Equatable {
   const CommentEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => 
 }
 
 

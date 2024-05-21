@@ -8,7 +8,7 @@ part 'announcement_event.dart';
 part 'announcement_state.dart';
 
 class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
-  final AnnouncementRepository announcementRepository;
+  final AnnouncementRepository announcementRepository
 
   AnnouncementBloc({required this.announcementRepository})
       : super(AnnouncementInitial()) {

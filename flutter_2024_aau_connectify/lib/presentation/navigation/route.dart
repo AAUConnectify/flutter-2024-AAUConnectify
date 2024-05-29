@@ -95,14 +95,14 @@ import '../screens/profile/user_profile.dart';
 
 const String loginRoute = '/login_page';
 const String homeRoute = '/home_page';
-const String signupRoute = '/signup_page';
-const String signupRoute2 = '/signup_page2';
-const String signupRoute3 = '/signup_page3';
+const String signupRoute = '/landingpage_page/signup_page';
+const String signupRoute2 = '/landingpage_page/signup_page/signup_page2';
+const String signupRoute3 = '/landingpage_page/signup_page/signup_page2/signup_page3';
 const String landingpageRoute = '/landingpage_page';
 const String announcementUser = '/Announcement_user_page';
 const String profileUser = '/profile_user_page';
-const String resetPasswordRoute = '/reset_password_page';
-const String resetPasswordRoute2 = '/reset_password_page2';
+const String resetPasswordRoute = '/login_page/reset_password_page';
+const String resetPasswordRoute2 = '/login_page/reset_password_page/reset_password_page2';
 const String announcementDetailUserRoute = '/announcement_detail_user';
 const String createAnnouncementRoute = '/create_announcement';
 
@@ -130,7 +130,7 @@ class AppRouter {
       ),
       GoRoute(
         path: loginRoute,
-        builder: (context, state) => const LoginPage(),
+        builder: (context, state) =>  LoginPage(),
       ),
       GoRoute(
         path: signupRoute,
@@ -176,7 +176,7 @@ class AppRouter {
       ),
       GoRoute(
         path: resetPasswordRoute,
-        builder: (context, state) => const ResetPasswordPage(),
+        builder: (context, state) =>  ResetPasswordPage(),
       ),
       GoRoute(
         path: resetPasswordRoute2,

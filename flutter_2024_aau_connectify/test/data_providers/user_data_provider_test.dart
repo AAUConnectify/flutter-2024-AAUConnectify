@@ -46,11 +46,10 @@ void main() {
      
       final userDataProvider = UserDataProvider();
       const String fullName = 'John Doe';
-      const String email = "fuad.mohamed@a2sv.org";
+      const String email = "fuad.mohammed@a2sv.org";
       const String password = "password123";
       const String studentId = "ugr/9999/14";
       const String studentPassword = "pass";
-
       // Act & Assert
       final response = await userDataProvider.registerUser(
           fullName, email, password, studentId, studentPassword);
@@ -64,10 +63,11 @@ void main() {
       // Arrange
       final userDataProvider = UserDataProvider();
       const email = 'fuad.mohammed@a2sv.org';
-      const code = '1234';
+      const code = 'UZL1PE';
 
       // Act & Assert
       final response = await userDataProvider.verifyEmail(email, code);
+      print(response);
       expect(response, isNotNull);
     });
   });

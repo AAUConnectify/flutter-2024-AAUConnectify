@@ -30,7 +30,7 @@ class AAUConnectifyApp extends StatelessWidget {
       child: BlocProvider(
         create: (context) => AuthenticationBloc(
           userRepository: RepositoryProvider.of<UserRepository>(context),
-        ),
+        )..add(AppStarted()),
         child: MaterialApp.router(
           routerDelegate: AppRouter.router.routerDelegate,
           routeInformationParser: AppRouter.router.routeInformationParser,

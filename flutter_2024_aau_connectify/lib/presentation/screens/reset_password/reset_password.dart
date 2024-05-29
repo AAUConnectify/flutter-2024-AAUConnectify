@@ -6,22 +6,12 @@ import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/radiuses.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/widths.dart';
+import 'package:go_router/go_router.dart';
 
-class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({super.key});
+class ResetPasswordPage extends StatelessWidget {
+   ResetPasswordPage({super.key});
 
-  @override
-  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
-}
-
-class _ResetPasswordPageState extends State<ResetPasswordPage> {
   bool _obscureText = true;
-
-  void _togglePasswordVisibility() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +21,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Navigator.pop(context);
+              context.pop();
             },
           ),
         ),

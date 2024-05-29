@@ -29,18 +29,24 @@ class SignUp2 extends StatelessWidget {
 
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-       if (state is AuthenticationAccountCreated){
-        context.go(signupRoute3, extra: {
-          'email':_emailController.text
-        });
-       }
+        if (state is AuthenticationAccountCreated) {
+          context.go(signupRoute3, extra: {'email': _emailController.text});
+        } 
+        if (state is AuthenticationFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.error),
+              backgroundColor: CustomColors.errorColor,
+            ),
+          );
+        }
       },
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Navigator.pop(context);
+              context.pop(context);
             },
           ),
         ),
@@ -79,22 +85,12 @@ class SignUp2 extends StatelessWidget {
                               countroller: _confirmPassController,
                               label: 'Confirm password',
                               isPass: true),
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 5),
-                            child: const TextField(
-                              decoration:
-                                  InputDecoration(label: Text('Image link')),
-                            ),
-                          )
                         ],
                       ),
                     ),
                   ),
                   BlocBuilder<AuthenticationBloc, AuthenticationState>(
                     builder: (context, state) {
-                      if (state is AuthenticationLoading) {
-                        return const CircularProgressIndicator();
-                      }
                       return Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         margin: const EdgeInsets.symmetric(vertical: 20),
@@ -128,12 +124,19 @@ class SignUp2 extends StatelessWidget {
                               .copyWith(
                                   minimumSize: const MaterialStatePropertyAll(
                                       Size(double.infinity, 50))),
-                          child: Text(
-                            "create account",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(color: Colors.white),
+                          child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (context, state) {
+                              if (state is AuthenticationLoading) {
+                                return const CircularProgressIndicator();
+                              }
+                              return Text(
+                                "create account",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(color: Colors.white),
+                              );
+                            },
                           ),
                         ),
                       );

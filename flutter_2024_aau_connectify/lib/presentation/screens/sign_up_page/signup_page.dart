@@ -166,8 +166,7 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         const Text("Already have an account?"),
                         TextButton(
-                            onPressed: () => (Navigator.pushNamed(
-                                context, route.loginRoute)),
+                            onPressed: () => (context.go(loginRoute)),
                             child: const Text(
                               "Login",
                               style: TextStyle(

@@ -86,7 +86,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Future<void> _onVerifyEmail(VerifyEmail event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     try {
+      
       final success = await userRepository.verifyUserEmail(event.email, event.code);
+      print('from the bloc of veryfy email $success');
       if (success) {
         emit(AuthenticationEmailVerified());
       } else {

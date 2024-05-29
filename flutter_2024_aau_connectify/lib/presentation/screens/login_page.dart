@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                               style: _textTheme.button,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: CustomPaddings.small,
                           ),
                           Row(

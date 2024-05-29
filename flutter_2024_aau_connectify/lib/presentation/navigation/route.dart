@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_detail_user.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
@@ -69,4 +70,133 @@ Route<dynamic> controller(RouteSettings settings) {
                 ),
               ));
   }
+}
+*/
+
+import 'dart:math';
+
+import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_3.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_detail_user.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/landing_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/login_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/reset_password/reset_password.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/reset_password/reset_password_2.dart';
+
+import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_2.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/user_Home.dart';
+
+import '../screens/profile/user_profile.dart';
+
+const String loginRoute = '/login_page';
+const String homeRoute = '/home_page';
+const String signupRoute = '/signup_page';
+const String signupRoute2 = '/signup_page2';
+const String signupRoute3 = '/signup_page3';
+const String landingpageRoute = '/landingpage_page';
+const String announcementUser = '/Announcement_user_page';
+const String profileUser = '/profile_user_page';
+const String resetPasswordRoute = '/reset_password_page';
+const String resetPasswordRoute2 = '/reset_password_page2';
+const String announcementDetailUserRoute = '/announcement_detail_user';
+const String createAnnouncementRoute = '/create_announcement';
+
+class AppRouter {
+  static final router = GoRouter(
+    initialLocation: landingpageRoute,
+    errorPageBuilder: (context, state) => MaterialPage(
+      key: state.pageKey,
+      child: const Scaffold(
+        body: Center(
+          // ...
+
+          child: Text('No route defined for '),
+        ),
+      ),
+    ),
+    routes: [
+      GoRoute(
+        path: landingpageRoute,
+        builder: (context, state) => const LandingPage(),
+      ),
+      GoRoute(
+        path: homeRoute,
+        builder: (context, state) => const Home(),
+      ),
+      GoRoute(
+        path: loginRoute,
+        builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: signupRoute,
+        builder: (context, state) => const SignUp(),
+      ),
+      GoRoute(
+        path: signupRoute2,
+        builder: (context, state) {
+          final studentId =
+              (state.extra as Map<String, dynamic>)['studentId'] as String? ??
+                  '';
+          final studentPassword = (state.extra
+                  as Map<String, dynamic>)['studentPassword'] as String? ??
+              '';
+          return SignUp2(
+              studentId: studentId, studentPassword: studentPassword);
+        },
+      ),
+      GoRoute(
+        path: signupRoute3,
+        builder: (context, state) {
+          final email =
+              (state.extra as Map<String, dynamic>)['email'] as String? ?? '';
+          return SignUp3(email: email);
+        },
+      ),
+      GoRoute(
+        path: announcementUser,
+        builder: (context, state) => const AnnouncementUserPage(),
+      ),
+      GoRoute(
+        path: profileUser,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+          return ProfileUser(
+            name: data?['name'] ?? 'John Doe',
+            id: data?['id'] ?? '123456',
+            userName: data?['userName'] ?? 'johndoe',
+            fieldOfStudy: data?['fieldOfStudy'] ?? 'Computer Science',
+            image: data?['image'] ?? 'assets/images/profile.jpg',
+          );
+        },
+      ),
+      GoRoute(
+        path: resetPasswordRoute,
+        builder: (context, state) => const ResetPasswordPage(),
+      ),
+      GoRoute(
+        path: resetPasswordRoute2,
+        builder: (context, state) => const ResetPasswordPage2(),
+      ),
+      GoRoute(
+        path: announcementDetailUserRoute,
+        builder: (context, state) => const AnnouncementDetailUser(),
+      ),
+      GoRoute(
+        path: createAnnouncementRoute,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+          return CreateAnnouncement(
+            title: data?['title'] ?? 'Default Title',
+            summery: data?['summery'] ?? 'Default Summary',
+            tag: data?['tag'] ?? 'Default Tag',
+          );
+        },
+      ),
+    ],
+  );
 }

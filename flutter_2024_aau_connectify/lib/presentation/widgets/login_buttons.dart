@@ -3,6 +3,7 @@ import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginButtons extends StatelessWidget {
   final String login_route;
@@ -19,8 +20,7 @@ class LoginButtons extends StatelessWidget {
             widthFactor: 0.8,
             child: ElevatedButton(
               onPressed: () {
-                // Navigator.pop(context);
-                Navigator.pushNamed(context, login_route);
+                context.go(login_route);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColors.primaryColor,
@@ -46,8 +46,9 @@ class LoginButtons extends StatelessWidget {
             children: [
               const Text("Don't have an account?"),
               TextButton(
-                  onPressed: () => (Navigator.pushNamed(context, signup_route)),
+                  onPressed: () => context.go(signup_route),
                   child: const Text(
+                    
                     "Sign Up",
                     style: TextStyle(
                         color: CustomColors.primaryColor,

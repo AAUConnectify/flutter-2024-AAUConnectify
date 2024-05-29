@@ -8,4 +8,5 @@ class CustomColors {
   static const Color secondaryTextColor = Color(0xFF09051C);
   static const Color tertiaryTextColor = Color(0xFFDA6317);
   static const Color textGrey = Color(0xFFA0A0A0);
+  static const Color errorColor = Color.fromARGB(255, 212, 54, 54);
 }

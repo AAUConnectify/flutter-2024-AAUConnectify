@@ -1,49 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/presentation/style/heights.dart';
+import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
-import 'package:flutter_2024_aau_connectify/presentation/style/widths.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_description_card.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_detail_image_card.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/appbar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-class AnnouncementDetailUser extends StatefulWidget {
-  const AnnouncementDetailUser({super.key});
-
-  @override
-  State<AnnouncementDetailUser> createState() => _AnnouncementDetailUserState();
-}
-
-class _AnnouncementDetailUserState extends State<AnnouncementDetailUser> {
+class AnnouncementDetailUser extends StatelessWidget {
+  final String id;
+  const AnnouncementDetailUser({super.key, required this.id});
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<AnnouncementBloc>(context).add(FetchAnnouncementById(id: id));
+
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "post detail",
-        actions: [],
+      appBar: AppBar(
+        title: const Text("post detail"), leading: IconButton(onPressed: (){
+          context.go(homeRoute);
+        }, icon: const Icon(Icons.arrow_back_ios )),
+        
       ),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                top: CustomPaddings.medium,
-                bottom: CustomPaddings.small,
-                left: CustomPaddings.small),
-            child: Text(
-              'Announcement Title',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(fontSize: CustomFontSize.h3),
-            ),
+          BlocBuilder<AnnouncementBloc, AnnouncementState>(
+            builder: (context, state) {
+         
+              if (state is SingleAnnouncementLoaded) {
+                final data = state.announcement;
+                print('$data data from the abljec ');
+                return Expanded(
+                  child: Container(
+                    child: Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: CustomPaddings.medium,
+                            bottom: CustomPaddings.small,
+                            left: CustomPaddings.small),
+                        child: Text(
+                          data.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontSize: CustomFontSize.h3),
+                        ),
+                      ),
+                      AnnouncementDetailImageCard(image: data.image),
+                      AnnouncementDescriptionCard(
+                        announcement: data,
+                      ),
+                    ]),
+                  ),
+                );
+              }
+
+              if (state is AnnouncementOperationFailure) {
+                return Center(child: Text((state).error));
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
           ),
-          const AnnouncementDetailImageCard(),
-          const AnnouncementDescriptionCard(),
           const Card(
             child: Padding(
               padding: EdgeInsets.all(CustomPaddings.medium),
               child: TextField(
-
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
@@ -52,7 +75,6 @@ class _AnnouncementDetailUserState extends State<AnnouncementDetailUser> {
                   focusedBorder: UnderlineInputBorder(),
                   enabledBorder: UnderlineInputBorder(),
                   hintText: 'Add a comment...',
-                  
                 ),
               ),
             ),
@@ -81,7 +103,7 @@ class _AnnouncementDetailUserState extends State<AnnouncementDetailUser> {
               ListTile(
                 leading: CircleAvatar(
                   backgroundImage:
-                      NetworkImage('https://example.com/user_avatar.jpg'),
+                      NetworkImage('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
                 ),
                 title: Text('John Doe'),
                 subtitle: Text('This is a comment from the user.'),
@@ -89,17 +111,16 @@ class _AnnouncementDetailUserState extends State<AnnouncementDetailUser> {
               Divider(),
             ],
           ),
-           Column(
+          Column(
             children: [
               const ListTile(
                 leading: CircleAvatar(
                   backgroundImage:
-                      NetworkImage('https://example.com/user_avatar.jpg'),
+                      NetworkImage('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
                 ),
                 title: Text('John Doe'),
                 subtitle: Text('This is a comment from the user.'),
               ),
-              
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -111,25 +132,23 @@ class _AnnouncementDetailUserState extends State<AnnouncementDetailUser> {
                   //delete button
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.error),
+                      backgroundColor: MaterialStatePropertyAll(
+                          Theme.of(context).colorScheme.error),
                     ),
                     onPressed: () {},
                     child: const Text('Delete'),
                   ),
-                  
                 ],
-
               ),
               const Divider(),
             ],
-
           ),
           const Column(
             children: [
               ListTile(
                 leading: CircleAvatar(
                   backgroundImage:
-                      NetworkImage('https://example.com/user_avatar.jpg'),
+                      NetworkImage('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
                 ),
                 title: Text('John Doe'),
                 subtitle: Text('This is a comment from the user.'),

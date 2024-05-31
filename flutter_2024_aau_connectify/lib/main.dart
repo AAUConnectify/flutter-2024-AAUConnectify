@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/bloc/auth_bloc/auth_bloc.dart';
+import 'package:flutter_2024_aau_connectify/data_providers/announcement_data_provider.dart';
 import 'package:flutter_2024_aau_connectify/data_providers/user_data_provider.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
+import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
 import 'package:flutter_2024_aau_connectify/repository/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_theme/json_theme.dart';
@@ -11,7 +14,8 @@ import 'dart:convert';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final themeStr = await rootBundle.loadString('assets/theme/custom_theme.json');
+  final themeStr =
+      await rootBundle.loadString('assets/theme/custom_theme.json');
   final themeJson = jsonDecode(themeStr);
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
 
@@ -25,12 +29,29 @@ class AAUConnectifyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => UserRepository(UserDataProvider()),
-      child: BlocProvider(
-        create: (context) => AuthenticationBloc(
-          userRepository: RepositoryProvider.of<UserRepository>(context),
-        )..add(AppStarted()),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => UserRepository(UserDataProvider()),
+        ),
+        RepositoryProvider(
+          create: (context) =>
+              AnnouncementRepository(AnnouncementDataProvider()),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthenticationBloc(
+              userRepository: RepositoryProvider.of<UserRepository>(context),
+            )..add(AppStarted()),
+          ),
+          BlocProvider(
+            create: (context) => AnnouncementBloc(
+              announcementRepository: RepositoryProvider.of<AnnouncementRepository>(context),
+            ),
+          ),
+        ],
         child: MaterialApp.router(
           routerDelegate: AppRouter.router.routerDelegate,
           routeInformationParser: AppRouter.router.routeInformationParser,

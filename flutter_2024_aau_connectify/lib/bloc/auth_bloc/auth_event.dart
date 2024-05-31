@@ -30,6 +30,8 @@ class Registered extends AuthenticationEvent {
   final String studentId;
   final String studentPassword;
 
+  
+
   const Registered({
     required this.fullName,
     required this.email,

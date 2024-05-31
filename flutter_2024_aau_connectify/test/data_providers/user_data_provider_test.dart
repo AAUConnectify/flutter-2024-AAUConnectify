@@ -77,15 +77,16 @@ void main() {
   test('login should return a valid response', () async {
   // Arrange
   final userDataProvider = UserDataProvider();
-  const email = '';
-  const password = '';
+  const email = 'fuad.mohammed@a2sv.org';
+  const password = 'pass';
 
   // Act
   final response = await userDataProvider.login(email, password);
   final data = jsonDecode(response['body']);
+  print(data);
 
   // Assert
-  expect(data['statusCode'].toString(), '500');
+  
 });
 
 

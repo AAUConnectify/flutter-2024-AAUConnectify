@@ -97,12 +97,14 @@ const String loginRoute = '/login_page';
 const String homeRoute = '/home_page';
 const String signupRoute = '/landingpage_page/signup_page';
 const String signupRoute2 = '/landingpage_page/signup_page/signup_page2';
-const String signupRoute3 = '/landingpage_page/signup_page/signup_page2/signup_page3';
+const String signupRoute3 =
+    '/landingpage_page/signup_page/signup_page2/signup_page3';
 const String landingpageRoute = '/landingpage_page';
 const String announcementUser = '/Announcement_user_page';
 const String profileUser = '/profile_user_page';
 const String resetPasswordRoute = '/login_page/reset_password_page';
-const String resetPasswordRoute2 = '/login_page/reset_password_page/reset_password_page2';
+const String resetPasswordRoute2 =
+    '/login_page/reset_password_page/reset_password_page2';
 const String announcementDetailUserRoute = '/announcement_detail_user';
 const String createAnnouncementRoute = '/create_announcement';
 
@@ -126,11 +128,11 @@ class AppRouter {
       ),
       GoRoute(
         path: homeRoute,
-        builder: (context, state) => const Home(),
+        builder: (context, state) =>  Home(),
       ),
       GoRoute(
         path: loginRoute,
-        builder: (context, state) =>  LoginPage(),
+        builder: (context, state) => LoginPage(),
       ),
       GoRoute(
         path: signupRoute,
@@ -176,7 +178,7 @@ class AppRouter {
       ),
       GoRoute(
         path: resetPasswordRoute,
-        builder: (context, state) =>  ResetPasswordPage(),
+        builder: (context, state) => ResetPasswordPage(),
       ),
       GoRoute(
         path: resetPasswordRoute2,
@@ -184,7 +186,17 @@ class AppRouter {
       ),
       GoRoute(
         path: announcementDetailUserRoute,
-        builder: (context, state) => const AnnouncementDetailUser(),
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+          /* return CreateAnnouncement(
+            title: data?['title'] ?? 'Default Title',
+            summery: data?['summery'] ?? 'Default Summary',
+            tag: data?['tag'] ?? 'Default Tag',
+          ); */
+          return AnnouncementDetailUser(
+            id: data?['id'] ?? 'Default ID',
+          );
+        },
       ),
       GoRoute(
         path: createAnnouncementRoute,

@@ -13,9 +13,9 @@ class APIEndpoints {
 
   static const String createAnnouncement = '/announcements';
   static const String getAnnouncements = '/announcements';
-  static const String getAnnouncementById = '/announcements/id';
-  static const String updateAnnouncement = '/announcements/id';
-  static const String deleteAnnouncement = '/announcements/id';
+  static const String getAnnouncementById = '/announcements';
+  static const String updateAnnouncement = '/announcements';
+  static const String deleteAnnouncement = '/announcements';
 
   static const String createComment = '/comments';
   static const String getCommentsByAnnouncementId = '/comments';

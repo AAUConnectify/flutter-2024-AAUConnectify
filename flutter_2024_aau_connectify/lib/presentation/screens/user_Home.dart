@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart'
     as route;
 import 'package:flutter_2024_aau_connectify/presentation/screens/Admin/admin.dart';
@@ -9,15 +10,11 @@ import 'package:flutter_2024_aau_connectify/presentation/screens/profile/user_pr
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_card.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_catagory.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Home extends StatelessWidget {
+  Home({super.key});
 
-  @override
-  State<Home> createState() => HomeState();
-}
-
-class HomeState extends State<Home> {
   final List<BottomNavigationBarItem> _bottomNavBarItems = [
     const BottomNavigationBarItem(
       icon: Icon(Icons.home),
@@ -40,35 +37,36 @@ class HomeState extends State<Home> {
         userName: 'johndoe',
         fieldOfStudy: 'Computer Science',
         image: 'assets/images/background_3.jpeg'),
-     AdminPage()
+    AdminPage()
   ];
-  int _selectedIndex = 0;
-  void _onTapBottomNav(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  final int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          title: Text(
-            'AAU Connectify',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall!
-                .copyWith(color: CustomColors.secondaryTextColor),
-          ),
-          centerTitle: true,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: CustomColors.primaryColor,
-          items: _bottomNavBarItems,
-          currentIndex: _selectedIndex,
-          onTap: _onTapBottomNav,
-        ),
-        body: pages[_selectedIndex]);
+    BlocProvider.of<AnnouncementBloc>(context).add(const FetchAnnouncements(1, 10));
+    print('home page');
+    return BlocBuilder<AnnouncementBloc, AnnouncementState>(
+      builder: (context, state) {
+        return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              title: Text(
+                'AAU Connectify',
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(color: CustomColors.secondaryTextColor),
+              ),
+              centerTitle: true,
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              selectedItemColor: CustomColors.primaryColor,
+              items: _bottomNavBarItems,
+              currentIndex: _selectedIndex,
+              onTap: (int) {},
+            ),
+            body: pages[_selectedIndex]);
+      },
+    );
   }
 }

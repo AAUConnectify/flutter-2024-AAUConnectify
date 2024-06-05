@@ -35,7 +35,7 @@ class _LandingPageState extends State<LandingPage> {
                     LandingPageMainComponent(),
                     // Buttons
                     LoginButtons(
-                        login_route: loginRoute, signup_route: signupRoute),
+                        login_route: loginRoute, signup_route: verifyStudentRoute),
                   ],
                 ),
               ),

@@ -6,36 +6,20 @@ import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart'
     as route;
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class SignUpVerify extends StatefulWidget {
+  const SignUpVerify({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUpVerify> createState() => _SignUpVerifyState();
 }
 
-class _SignUpState extends State<SignUp> {
+
+class _SignUpVerifyState extends State<SignUpVerify> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _studentPasswordController =
       TextEditingController();
-  final TextEditingController _studentPasswordConfirmController =
-      TextEditingController();
   final TextEditingController _idController = TextEditingController();
-
-  bool _passwordsMatch = true;
-  bool _isPasswordVisible = false;
-  bool _isConfirmPasswordVisible = false;
-
-  void _createAccount() {
-    setState(() {
-      _passwordsMatch = _studentPasswordController.text ==
-          _studentPasswordConfirmController.text;
-    });
-
-    if (_passwordsMatch) {
-      Navigator.pushNamed(context, route.verifyEmailRoute);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +47,7 @@ class _SignUpState extends State<SignUp> {
           Container(
             margin: const EdgeInsets.symmetric(vertical: CustomPaddings.small),
             child: Text(
-              "Sign Up",
+              "Verify You are AAU's Student",
               style: customtext.titleLarge,
             ),
           ),
@@ -73,6 +57,7 @@ class _SignUpState extends State<SignUp> {
                   const EdgeInsets.symmetric(horizontal: CustomPaddings.medium),
               child: ListView(
                 children: [
+              
                   Container(
                     margin: const EdgeInsets.symmetric(
                         vertical: CustomPaddings.small),
@@ -80,8 +65,8 @@ class _SignUpState extends State<SignUp> {
                       decoration: const InputDecoration(
                           contentPadding:
                               EdgeInsets.only(left: CustomPaddings.medium),
-                          label: Text('Full Name')),
-                      controller: _nameController,
+                          label: Text('Student ID')),
+                      controller: _idController,
                     ),
                   ),
                   Container(
@@ -91,64 +76,11 @@ class _SignUpState extends State<SignUp> {
                       decoration: const InputDecoration(
                           contentPadding:
                               EdgeInsets.only(left: CustomPaddings.medium),
-                          label: Text('Email')),
-                      controller: _usernameController,
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: CustomPaddings.small),
-                    child: TextField(
-                      obscureText: !_isPasswordVisible,
-                      decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.only(left: CustomPaddings.medium),
-                        label: const Text('Password'),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                        ),
-                      ),
+                          label: Text('Student Password')),
                       controller: _studentPasswordController,
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: CustomPaddings.small),
-                    child: TextField(
-                      obscureText: !_isConfirmPasswordVisible,
-                      decoration: InputDecoration(
-                        contentPadding:
-                            const EdgeInsets.only(left: CustomPaddings.medium),
-                        label: const Text('Confirm Password'),
-                        errorText: _passwordsMatch
-                            ? null
-                            : 'Passwords do not match',
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isConfirmPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isConfirmPasswordVisible =
-                                  !_isConfirmPasswordVisible;
-                            });
-                          },
-                        ),
-                      ),
-                      controller: _studentPasswordConfirmController,
-                    ),
-                  ),
+                 
                 ],
               ),
             ),
@@ -158,7 +90,10 @@ class _SignUpState extends State<SignUp> {
               FractionallySizedBox(
                 widthFactor: 0.8,
                 child: ElevatedButton(
-                  onPressed: _createAccount,
+                  onPressed: () {
+                    // Navigator.pop(context);
+                    Navigator.pushNamed(context, route.signupRoute);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: CustomColors.primaryColor,
                     foregroundColor: CustomColors.backgroundColor,
@@ -171,7 +106,7 @@ class _SignUpState extends State<SignUp> {
                       color: CustomColors.backgroundColor,
                     ),
                   ),
-                  child: const Text('Create Account'),
+                  child: const Text('Verify'),
                 ),
               ),
               const SizedBox(

@@ -57,17 +57,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           ),
                           // security question
                           Text(
-                            "What is your favourite color? (Dummy Question)",
+                            "Enter Your Registered Email",
                             style: _textTheme.titleSmall!.copyWith(
                               fontSize: CustomFontSize.h4,
                             ),
                           ),
                           const SizedBox(
-                            height: CustomPaddings.medium,
+                            height: CustomPaddings.extraLarge,
                           ),
                           const TextField(
                             decoration: InputDecoration(
-                                hintText: "Your Security Question Answer",
+                                hintText: "Email",
                                 contentPadding:
                                     EdgeInsets.all(CustomPaddings.medium)),
                           ),
@@ -75,7 +75,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: CustomPaddings.ultraLarge,
+                      height: CustomPaddings.ultimateLarge,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(

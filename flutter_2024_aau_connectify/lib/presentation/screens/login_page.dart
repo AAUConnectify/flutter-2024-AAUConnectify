@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             const TextField(
                               decoration: InputDecoration(
-                                  hintText: "Username",
+                                  hintText: "Email",
                                   contentPadding:
                                       EdgeInsets.all(CustomPaddings.medium)),
                             ),
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                               const Text("Don't have an account?"),
                               TextButton(
                                   onPressed: () => (Navigator.pushNamed(
-                                      context, signupRoute)),
+                                      context, verifyStudentRoute)),
                                   child: const Text(
                                     "Sign Up",
                                     style: TextStyle(

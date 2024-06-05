@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/user_card.dart';
+import 'package:go_router/go_router.dart';
 
 class AdminPage extends StatelessWidget {
   AdminPage({super.key});
@@ -121,7 +123,7 @@ class AdminPage extends StatelessWidget {
               message: 'Create Announcement',
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/create_announcement');
+                  context.go(createAnnouncementRoute);
                 },
                 child: const Icon(Icons.add),
               ),

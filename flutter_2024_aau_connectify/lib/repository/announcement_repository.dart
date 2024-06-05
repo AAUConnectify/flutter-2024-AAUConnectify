@@ -47,6 +47,7 @@ class AnnouncementRepository {
     try {
       final response = await dataProvider.createAnnouncement(
           title, content, category, summary, date, image, tag, token);
+        print(response);
       if (response['success']) {
         return true;
       }

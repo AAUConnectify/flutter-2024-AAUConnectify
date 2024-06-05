@@ -17,19 +17,18 @@ class FetchAnnouncements extends AnnouncementEvent {
   List<Object> get props => [page, limit];
 }
 
-class CreateAnnouncement extends AnnouncementEvent {
+class CreateAnnouncementEvent extends AnnouncementEvent {
   final String title;
   final String content;
-  final String category;
+  final String category = 'same category';
   final String summary;
   final String date;
   final String image;
   final String tag;
 
-  const CreateAnnouncement({
+  const CreateAnnouncementEvent({
     required this.title,
     required this.content,
-    required this.category,
     required this.summary,
     required this.date,
     required this.image,

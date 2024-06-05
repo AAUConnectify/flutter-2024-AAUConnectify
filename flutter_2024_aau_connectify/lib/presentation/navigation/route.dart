@@ -200,7 +200,6 @@ class AppRouter {
           final data = state.extra as Map<String, dynamic>?;
           return BlocProvider(
             create: (context) => AnnouncementBloc(
-              
               announcementRepository: context.read<AnnouncementRepository>(),
             )..add(FetchAnnouncementById(id: (data?['id'] ?? ''))),
             child: AnnouncementDetailUser(
@@ -213,10 +212,23 @@ class AppRouter {
         path: createAnnouncementRoute,
         builder: (context, state) {
           final data = state.extra as Map<String, dynamic>?;
+          /* 
+          {
+  "title": "string",
+  "content": "string",
+  "summary": "string",
+  "date": "2024-06-05T10:55:57.191Z",
+  "image": "string",
+  "tag": "string"
+} */
           return screens.CreateAnnouncement(
-            title: data?['title'] ?? 'Default Title',
-            summery: data?['summery'] ?? 'Default Summary',
-            tag: data?['tag'] ?? 'Default Tag',
+            title: data?['title'] ?? '',
+            content: data?['content'] ?? '',
+            summery: data?['summery'] ?? '',
+            date: data?['date'] ?? '',
+            image: data?['image'] ?? '',
+            tag: data?['tag'] ?? 'Academic',
+
           );
         },
       ),

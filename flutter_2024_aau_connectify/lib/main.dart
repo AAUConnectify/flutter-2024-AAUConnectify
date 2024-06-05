@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/bloc/auth_bloc/auth_bloc.dart';
+import 'package:flutter_2024_aau_connectify/bloc/cubit/general_cubit.dart';
 import 'package:flutter_2024_aau_connectify/data_providers/announcement_data_provider.dart';
 import 'package:flutter_2024_aau_connectify/data_providers/user_data_provider.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
@@ -50,6 +51,9 @@ class AAUConnectifyApp extends StatelessWidget {
             create: (context) => AnnouncementBloc(
               announcementRepository: RepositoryProvider.of<AnnouncementRepository>(context),
             ),
+          ),
+          BlocProvider(
+            create: (context) => GeneralCubit(),
           ),
         ],
         child: MaterialApp.router(

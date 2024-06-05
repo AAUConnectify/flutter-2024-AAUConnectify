@@ -12,7 +12,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
   AnnouncementBloc({required this.announcementRepository})
       : super(AnnouncementInitial()) {
     on<FetchAnnouncements>(_getannouncement);
-    on<CreateAnnouncement>(_onCreateAnnouncement);
+    on<CreateAnnouncementEvent>(_onCreateAnnouncement);
     on<UpdateAnnouncement>(_onUpdateAnnouncement);
     on<DeleteAnnouncement>(_onDeleteAnnouncement);
     on<FetchAnnouncementById>(_getannouncementById);
@@ -59,7 +59,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
   }
 
   Future<void> _onCreateAnnouncement(
-      CreateAnnouncement event, Emitter<AnnouncementState> emit) async {
+      CreateAnnouncementEvent event, Emitter<AnnouncementState> emit) async {
     emit(AnnouncementLoading());
     try {
       final token = await _getToken();
@@ -76,6 +76,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
           event.image,
           event.tag,
           token);
+        print(response);
       if (response) {
         emit(AnnouncementOperationSuccess());
       } else {

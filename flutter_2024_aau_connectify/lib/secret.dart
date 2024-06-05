@@ -19,7 +19,7 @@ class APIEndpoints {
 
   static const String createComment = '/comments';
   static const String getCommentsByAnnouncementId = '/comments';
-  static const String getCommentById = '/comments/id';
-  static const String updateComment = '/comments/id';
-  static const String deleteComment = '/comments/id';
+  static const String getCommentById = '/comments';
+  static const String updateComment = '/comments';
+  static const String deleteComment = '/comments';
 }

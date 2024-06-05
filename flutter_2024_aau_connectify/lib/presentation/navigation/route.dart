@@ -73,9 +73,12 @@ Route<dynamic> controller(RouteSettings settings) {
 }
 */
 
-import 'dart:math';
-
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart'
+    as screens;
+import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_3.dart';
+import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter/material.dart';
@@ -128,7 +131,14 @@ class AppRouter {
       ),
       GoRoute(
         path: homeRoute,
-        builder: (context, state) =>  Home(),
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => AnnouncementBloc(
+              announcementRepository: context.read<AnnouncementRepository>(),
+            )..add(const FetchAnnouncements(1, 10)),
+            child: Home(),
+          );
+        },
       ),
       GoRoute(
         path: loginRoute,
@@ -188,13 +198,14 @@ class AppRouter {
         path: announcementDetailUserRoute,
         builder: (context, state) {
           final data = state.extra as Map<String, dynamic>?;
-          /* return CreateAnnouncement(
-            title: data?['title'] ?? 'Default Title',
-            summery: data?['summery'] ?? 'Default Summary',
-            tag: data?['tag'] ?? 'Default Tag',
-          ); */
-          return AnnouncementDetailUser(
-            id: data?['id'] ?? 'Default ID',
+          return BlocProvider(
+            create: (context) => AnnouncementBloc(
+              
+              announcementRepository: context.read<AnnouncementRepository>(),
+            )..add(FetchAnnouncementById(id: (data?['id'] ?? ''))),
+            child: AnnouncementDetailUser(
+              id: data?['id'] ?? 'Default ID',
+            ),
           );
         },
       ),
@@ -202,7 +213,7 @@ class AppRouter {
         path: createAnnouncementRoute,
         builder: (context, state) {
           final data = state.extra as Map<String, dynamic>?;
-          return CreateAnnouncement(
+          return screens.CreateAnnouncement(
             title: data?['title'] ?? 'Default Title',
             summery: data?['summery'] ?? 'Default Summary',
             tag: data?['tag'] ?? 'Default Tag',

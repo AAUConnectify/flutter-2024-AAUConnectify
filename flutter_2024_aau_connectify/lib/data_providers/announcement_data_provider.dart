@@ -49,16 +49,7 @@ class AnnouncementDataProvider {
       Map<String, String> headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json',};
       Uri url = Uri.parse(
           '${APIEndpoints.baseUrl}${APIEndpoints.createAnnouncement}');
-          /*
-          {
-  "title": "string",
-  "content": "string",
-  "category": "string",
-  "summary": "string",
-  "date": "2024-05-31T12:25:24.778Z",
-  "image": "string", 
-  "tag": "dfkjfd" 
-}*/
+       
       String body = jsonEncode({
         "title": title,
         "content": content,

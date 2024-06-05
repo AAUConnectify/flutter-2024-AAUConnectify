@@ -143,4 +143,15 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('auth_token');
   }
+
+  // a I need a function that acts as a loggger for the bloc
+  @override
+  void onEvent(AnnouncementEvent event) {
+    print('$event is the event that was called');
+    super.onEvent(event);
+  }
+
+
+
+ 
 }

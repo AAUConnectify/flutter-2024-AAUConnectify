@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="flutter_2024_aau_connectify"
+        android:label="aau_connectify Updated"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

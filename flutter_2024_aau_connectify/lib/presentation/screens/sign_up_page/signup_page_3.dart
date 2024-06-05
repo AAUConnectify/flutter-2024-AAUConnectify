@@ -89,7 +89,6 @@ class SignUp3 extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(vertical: 20),
                   child: ElevatedButton(
                     onPressed: () {
-                      debugPrint('Verify Email: {${_verifyEmail.text}}, email: {$email}');
                         BlocProvider.of<AuthenticationBloc>(context).add(
                             VerifyEmail(email: email, code: _verifyEmail.text));
                       

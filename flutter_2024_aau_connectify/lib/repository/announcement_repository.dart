@@ -27,9 +27,7 @@ class AnnouncementRepository {
   }
 
   Future<Announcement> getAnnouncementById(String id, String token) async {
-    print('getAnnouncementById called with id: $id and token: $token');
     final response = await dataProvider.getAnnouncementById(id, token);
-    print('$response  response from getAnnouncementById');
     if (response['success']) {
       return Announcement.fromMap(jsonDecode(response['body']));
     } else {

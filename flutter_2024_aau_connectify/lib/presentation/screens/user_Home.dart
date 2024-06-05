@@ -1,21 +1,16 @@
-import 'package:flutter/cupertino.dart';
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart'
-    as route;
 import 'package:flutter_2024_aau_connectify/presentation/screens/Admin/admin.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
 import 'package:flutter_2024_aau_connectify/presentation/screens/profile/user_profile.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/colors.dart';
-import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_card.dart';
-import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_catagory.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatelessWidget {
-  Home({super.key});
+   Home({super.key});
 
-  final List<BottomNavigationBarItem> _bottomNavBarItems = [
+  final  List<BottomNavigationBarItem> _bottomNavBarItems = [
     const BottomNavigationBarItem(
       icon: Icon(Icons.home),
       label: 'Announcement',
@@ -37,14 +32,13 @@ class Home extends StatelessWidget {
         userName: 'johndoe',
         fieldOfStudy: 'Computer Science',
         image: 'assets/images/background_3.jpeg'),
-    AdminPage()
+  AdminPage()     
   ];
   final int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<AnnouncementBloc>(context).add(const FetchAnnouncements(1, 10));
-    print('home page');
+    print('Home build');
     return BlocBuilder<AnnouncementBloc, AnnouncementState>(
       builder: (context, state) {
         return Scaffold(

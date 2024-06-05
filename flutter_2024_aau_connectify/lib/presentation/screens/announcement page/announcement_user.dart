@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,10 +33,8 @@ class AnnouncementUserPageState extends State<AnnouncementUserPage> {
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
               child: BlocBuilder<AnnouncementBloc, AnnouncementState>(
                 builder: (context, state) {
-                  debugPrint(state.toString());
                   if (state is AnnouncementsLoaded) {
                     final data = state.announcements;
-                    print('$data data from the abljec ' );
                     return ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (context, index) {

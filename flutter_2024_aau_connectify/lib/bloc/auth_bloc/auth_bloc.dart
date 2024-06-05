@@ -88,7 +88,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     try {
       
       final success = await userRepository.verifyUserEmail(event.email, event.code);
-      print('from the bloc of veryfy email $success');
       if (success) {
         emit(AuthenticationEmailVerified());
       } else {

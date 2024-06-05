@@ -5,7 +5,6 @@ import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/typography.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_description_card.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/announcement_detail_image_card.dart';
-import 'package:flutter_2024_aau_connectify/presentation/widgets/appbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,8 +13,7 @@ class AnnouncementDetailUser extends StatelessWidget {
   const AnnouncementDetailUser({super.key, required this.id});
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<AnnouncementBloc>(context).add(FetchAnnouncementById(id: id));
-
+    print('AnnouncementDetailUser build');
     return Scaffold(
       appBar: AppBar(
         title: const Text("post detail"), leading: IconButton(onPressed: (){
@@ -30,29 +28,26 @@ class AnnouncementDetailUser extends StatelessWidget {
          
               if (state is SingleAnnouncementLoaded) {
                 final data = state.announcement;
-                print('$data data from the abljec ');
                 return Expanded(
-                  child: Container(
-                    child: Column(children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: CustomPaddings.medium,
-                            bottom: CustomPaddings.small,
-                            left: CustomPaddings.small),
-                        child: Text(
-                          data.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontSize: CustomFontSize.h3),
-                        ),
+                  child: Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: CustomPaddings.medium,
+                          bottom: CustomPaddings.small,
+                          left: CustomPaddings.small),
+                      child: Text(
+                        data.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(fontSize: CustomFontSize.h3),
                       ),
-                      AnnouncementDetailImageCard(image: data.image),
-                      AnnouncementDescriptionCard(
-                        announcement: data,
-                      ),
-                    ]),
-                  ),
+                    ),
+                    AnnouncementDetailImageCard(image: data.image),
+                    AnnouncementDescriptionCard(
+                      announcement: data,
+                    ),
+                  ]),
                 );
               }
 

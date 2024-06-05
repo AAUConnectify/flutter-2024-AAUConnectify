@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 
+// ignore: must_be_immutable
 class CreateAnnouncement extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController dateController = TextEditingController();

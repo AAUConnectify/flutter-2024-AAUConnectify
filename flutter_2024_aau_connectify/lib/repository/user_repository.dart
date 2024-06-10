@@ -48,7 +48,6 @@ class UserRepository {
     try {
       final response =
           await userDataProvider.verifyEmail(email, verificationCode);
-    print(response);
       if (response['statusCode'] < 200 || response['statusCode'] > 300) return false;
 
       final data = jsonDecode(response['body']);
@@ -88,5 +87,17 @@ class UserRepository {
       return {'success': false, 'message': 'Failed to get user details'};
     }
   }
+  Future<Map> changeRole(String newRole, String userId, String token) async {
+    try {
+      final response = await userDataProvider.changeRole(newRole, userId, token);
+      if (response['success'] == false) return {'success': false, 'message': 'Failed to change the role'};
+      final data = jsonDecode(response['body']);
+      return {'success': true, 'user': data};
+    } catch (e) {
+      return {'success': false, 'message': 'Failed to change the role'};
+    }
+  }
   
+
+
 }

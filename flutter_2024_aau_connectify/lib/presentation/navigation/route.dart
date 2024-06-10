@@ -75,29 +75,29 @@ Route<dynamic> controller(RouteSettings settings) {
 
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/create_announcement.dart'
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart'
     as screens;
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/update_announcement.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/sign_up_page/signup_page_3.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/update_announcement.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_3.dart';
 import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/announcement_detail_user.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/announcement_user.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/create_announcement.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/landing_page.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/login_page.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/reset_password/reset_password.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/reset_password/reset_password_2.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_detail_user.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/landing_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/login_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/reset_password/reset_password.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/reset_password/reset_password_2.dart';
 
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/sign_up_page/signup_page.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/sign_up_page/signup_page_2.dart';
-import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/user_Home.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_2.dart';
+import 'package:flutter_2024_aau_connectify/presentation/screens/user_Home.dart';
 
-import 'screens/profile/user_profile.dart';
+import '../screens/profile/user_profile.dart';
 
 const String loginRoute = '/login_page';
 const String homeRoute = '/home_page';

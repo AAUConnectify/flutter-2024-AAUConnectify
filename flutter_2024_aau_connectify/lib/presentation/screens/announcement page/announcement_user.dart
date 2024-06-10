@@ -4,8 +4,8 @@ import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../widgets/announcement_card.dart';
-import '../../../widgets/announcement_catagory.dart';
+import '../../widgets/announcement_card.dart';
+import '../../widgets/announcement_catagory.dart';
 
 class AnnouncementUserPage extends StatefulWidget {
   const AnnouncementUserPage({super.key});

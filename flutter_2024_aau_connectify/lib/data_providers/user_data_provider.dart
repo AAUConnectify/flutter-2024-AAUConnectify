@@ -101,4 +101,27 @@ class UserDataProvider {
       throw e.toString();
     }
   }
+
+  Future<Map> changeRole(String newRole, String userId, String token) async {
+    try {
+      Uri url = Uri.parse('${APIEndpoints.baseUrl}${APIEndpoints.changeRole}');
+      Map<String, String> header = {
+        'Authorization': 'Bearer $token ',
+        'Content-Type': 'application/json',
+      };
+
+      String body = jsonEncode({'newRole': newRole, 'userId': userId});
+
+      final responce = await http.put(url, headers: header, body: body);
+
+      if (responce.statusCode == 200) {
+        return {'body': responce.body, 'success': true};
+      } else
+       {
+        return {'body': responce.body, 'success': false};
+      }
+    } catch (e) {
+      throw e.toString();
+    }
+  }
 }

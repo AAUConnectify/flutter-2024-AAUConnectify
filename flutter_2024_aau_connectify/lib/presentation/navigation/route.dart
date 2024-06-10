@@ -73,28 +73,31 @@ Route<dynamic> controller(RouteSettings settings) {
 }
 */
 
-import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart'
+import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/create_announcement.dart'
     as screens;
 import 'package:flutter_2024_aau_connectify/bloc/announcement_bloc/announcement_bloc.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_3.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/update_announcement.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/sign_up_page/signup_page_3.dart';
 import 'package:flutter_2024_aau_connectify/repository/announcement_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_detail_user.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/announcement_user.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/announcement%20page/create_announcement.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/landing_page.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/login_page.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/reset_password/reset_password.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/reset_password/reset_password_2.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/announcement_detail_user.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/announcement_user.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/create_announcement.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/landing_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/login_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/reset_password/reset_password.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/reset_password/reset_password_2.dart';
 
-import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/sign_up_page/signup_page_2.dart';
-import 'package:flutter_2024_aau_connectify/presentation/screens/user_Home.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/sign_up_page/signup_page.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/sign_up_page/signup_page_2.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/user_Home.dart';
 
-import '../screens/profile/user_profile.dart';
+import 'screens/profile/user_profile.dart';
 
 const String loginRoute = '/login_page';
 const String homeRoute = '/home_page';
@@ -110,6 +113,7 @@ const String resetPasswordRoute2 =
     '/login_page/reset_password_page/reset_password_page2';
 const String announcementDetailUserRoute = '/announcement_detail_user';
 const String createAnnouncementRoute = '/create_announcement';
+const String updateAnnouncementRoute = '/update_announcement';
 
 class AppRouter {
   static final router = GoRouter(
@@ -212,15 +216,6 @@ class AppRouter {
         path: createAnnouncementRoute,
         builder: (context, state) {
           final data = state.extra as Map<String, dynamic>?;
-          /* 
-          {
-  "title": "string",
-  "content": "string",
-  "summary": "string",
-  "date": "2024-06-05T10:55:57.191Z",
-  "image": "string",
-  "tag": "string"
-} */
           return screens.CreateAnnouncement(
             title: data?['title'] ?? '',
             content: data?['content'] ?? '',
@@ -229,6 +224,21 @@ class AppRouter {
             image: data?['image'] ?? '',
             tag: data?['tag'] ?? 'Academic',
 
+          );
+        },
+      ),
+      GoRoute(
+        path: updateAnnouncementRoute,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+          return UpdateAnnouncements(
+            title: data?['title'] ?? '',
+            content: data?['content'] ?? '',
+            summery: data?['summery'] ?? '',
+            date: data?['date'] ?? '',
+            image: data?['image'] ?? '',
+            tag: data?['tag'] ?? 'Academic',
+            id: data?['id'] ?? '',
           );
         },
       ),

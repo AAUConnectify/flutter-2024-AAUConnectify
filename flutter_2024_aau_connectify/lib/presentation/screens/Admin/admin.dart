@@ -1,134 +1,66 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_2024_aau_connectify/bloc/cubit/generalcubit/general_cubit.dart';
 import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/Admin/manage_admins.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/Admin/manage_announcement.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/Admin/manage_users.dart';
+import 'package:flutter_2024_aau_connectify/presentation/navigation/screens/announcement%20page/create_announcement.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/widgets/user_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AdminPage extends StatelessWidget {
   AdminPage({super.key});
-  final List<Map<String, String>> user = [
-    {'name': 'John Doe', 'email': 'johndoe@example.com'},
-    {'name': 'Jane Smith', 'email': 'janesmith@example.com'},
-    {'name': 'Michael Johnson', 'email': 'michaeljohnson@example.com'},
-    {'name': 'Emily Davis', 'email': 'emilydavis@example.com'},
-    {'name': 'David Wilson', 'email': 'davidwilson@example.com'},
-    {'name': 'Michael Johnson', 'email': 'michaeljohnson@example.com'},
-    {'name': 'Emily Davis', 'email': 'emilydavis@example.com'},
-    {'name': 'David Wilson', 'email': 'davidwilson@example.com'},
+  final List<BottomNavigationBarItem> _bottomNavBarItems = [
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.admin_panel_settings),
+      label: 'Manage',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.manage_accounts),
+      label: 'Users',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.assignment_ind_outlined),
+      label: 'Admin',
+    ),
+  ];
+  final _pages = [
+   const ManageAnnouncement(),
+    ManageUsers(),
+   ManageAdmins(),
   ];
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          child: Column(children: [
-            // a heading saying admins
-            Container(
-              alignment: Alignment.center,
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: CustomPaddings.large,
-                  vertical: CustomPaddings.extraLarge),
-              child: Text(
-                "Users",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Column(children: [
+          Container(
+            color: Colors.grey[200],
+            child: BottomNavigationBar(
+              selectedItemColor: Colors.blue,
+              unselectedItemColor: Colors.grey,
+              showUnselectedLabels: true,
+              items: _bottomNavBarItems,
+              currentIndex: context.watch<GeneralCubit>().adminIndex,
+              onTap: (int index) {
+                context.read<GeneralCubit>().setAdminIndex(index);
+              },
             ),
+          ),
+          Expanded(
+            child: _pages[context.watch<GeneralCubit>().adminIndex],
+          ),]),
+          
+          
+        ],
 
-            Container(
-              decoration: const BoxDecoration(
-                  border: Border.symmetric(
-                vertical: BorderSide(width: 1),
-              )),
-              width: double.infinity,
-              height: 400,
-              alignment: Alignment.bottomRight,
-              margin: EdgeInsets.only(
-                  left: CustomPaddings.small,
-                  right: MediaQuery.of(context).size.width * 0.1),
-              child: NotificationListener<ScrollNotification>(
-                onNotification: (ScrollNotification notification) {
-                  // Check if the inner list is at the bottom
-                  if (notification is ScrollEndNotification &&
-                      notification.metrics.pixels ==
-                          notification.metrics.maxScrollExtent) {
-                    // Notify the outer list to start scrolling
-                    Scrollable.ensureVisible(
-                      context,
-                      alignment: 1.0,
-                      duration: const Duration(milliseconds: 300),
-                    );
-                  }
-                  return false; // Continue to dispatch the notification
-                },
-                child: ListView.builder(
-                  primary: false,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return UserCard(
-                      email: user[index]['email']!,
-                      name: user[index]['name']!,
-                    );
-                  },
-                  itemCount: user.length,
-                ),
-              ),
-            ),
-
-            Container(
-              alignment: Alignment.center,
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: CustomPaddings.large,
-                  vertical: CustomPaddings.extraLarge),
-              child: Text(
-                "Admins",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                  border: Border.symmetric(
-                vertical: BorderSide(width: 1),
-              )),
-              width: double.infinity,
-              height: 400,
-              alignment: Alignment.bottomRight,
-              margin: EdgeInsets.only(
-                  left: CustomPaddings.small,
-                  right: MediaQuery.of(context).size.width * 0.1),
-              child: ListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return AdminCard(
-                    email: user[index]['email']!,
-                    name: user[index]['name']!,
-                  );
-                },
-                itemCount: user.length,
-              ),
-            )
-          ]),
-        ),
-        Positioned(
-            bottom: 20,
-            right: 20,
-            child: Tooltip(
-              exitDuration: const Duration(seconds: 1),
-              message: 'Create Announcement',
-              child: FloatingActionButton(
-                onPressed: () {
-                  context.go(createAnnouncementRoute);
-                },
-                child: const Icon(Icons.add),
-              ),
-            ))
-      ],
+      ),
     );
   }
 }

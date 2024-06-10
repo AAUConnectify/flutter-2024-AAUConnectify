@@ -43,7 +43,7 @@ class UpdateAnnouncement extends AnnouncementEvent {
   final String id;
   final String title;
   final String content;
-  final String category;
+  final String category = 'the Same for all';
   final String summary;
   final String date;
   final String image;
@@ -53,7 +53,6 @@ class UpdateAnnouncement extends AnnouncementEvent {
     required this.id,
     required this.title,
     required this.content,
-    required this.category,
     required this.summary,
     required this.date,
     required this.image,

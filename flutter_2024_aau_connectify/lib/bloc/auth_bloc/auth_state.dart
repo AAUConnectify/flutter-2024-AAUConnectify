@@ -41,3 +41,16 @@ class AuthenticationFailure extends AuthenticationState {
   @override
   List<Object> get props => [error];
 }
+
+class UserDetailLoaded extends AuthenticationState{
+  final List<User> user;
+  const UserDetailLoaded({required this.user}); 
+}
+
+class UserLoadFailure extends AuthenticationState{
+  final String error;
+  const UserLoadFailure({required this.error});
+  @override
+  List<Object> get props => [error];
+}
+class UserLoading extends AuthenticationState{}

@@ -15,8 +15,7 @@ class AnnouncementRepository {
 
       final List<Announcement> announcements = [];
       final val = (jsonDecode(response['body']));
-     
-      
+
       for (var announcement in val) {
         announcements.add(Announcement.fromMap(announcement));
       }
@@ -35,7 +34,7 @@ class AnnouncementRepository {
     }
   }
 
-  Future<bool> createAnnouncement(
+  Future<Map> createAnnouncement(
       String title,
       String content,
       String category,
@@ -47,17 +46,22 @@ class AnnouncementRepository {
     try {
       final response = await dataProvider.createAnnouncement(
           title, content, category, summary, date, image, tag, token);
-        print(response);
       if (response['success']) {
-        return true;
+        return {'success': true, 'logout': false};
       }
-      return false;
+     else {
+        final body = jsonDecode(response['body']);
+        if (body['message'] == 'Invalid token') {
+          return {'success': false, 'logout': true};
+        }
+        return {'success': false, 'logout': false};
+      }
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
-  Future<bool> updateAnnouncementById(
+  Future<Map> updateAnnouncementById(
       String id,
       String title,
       String content,
@@ -71,21 +75,30 @@ class AnnouncementRepository {
       final response = await dataProvider.updateAnnouncementById(
           id, title, content, category, summary, date, image, tag, token);
       if (response['success']) {
-        return true;
+        return {'success': true, 'logout': false};
+      } else {
+        final body = jsonDecode(response['body']);
+        if (body['message'] == 'Invalid token') {
+          return {'success': false, 'logout': true};
+        }
+        return {'success': false, 'logout': false};
       }
-      return false;
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
-  Future<bool> deleteAnnouncementById(String id, String token) async {
+  Future<Map> deleteAnnouncementById(String id, String token) async {
     try {
       final response = await dataProvider.deleteAnnouncementById(id, token);
       if (response['success']) {
-        return true;
+        return {'success': true, 'logout': false};
       } else {
-        return false;
+        final body = jsonDecode(response['body']);
+        if (body['message'] == 'Invalid token') {
+          return {'success': false, 'logout': true};
+        }
+        return {'success': false, 'logout': false};
       }
     } catch (e) {
       throw Exception(e.toString());

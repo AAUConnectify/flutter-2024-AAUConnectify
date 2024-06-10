@@ -10,7 +10,10 @@ sealed class GeneralState extends Equatable {
 final class GeneralStats extends GeneralState {
   final int navigationIndex;
   final int category;
-  const GeneralStats(this.navigationIndex, this.category);
+  final int adminIndex;
+  const GeneralStats(this.navigationIndex, this.category, this.adminIndex);
   @override
-  List<Object> get props => [navigationIndex, category];
+  List<Object> get props => [navigationIndex, category, adminIndex];
+
+
 }

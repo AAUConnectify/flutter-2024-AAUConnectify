@@ -40,6 +40,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
       emit(AnnouncementOperationFailure(e.toString()));
     }
   }
+
   Future<void> _getannouncementById(
       FetchAnnouncementById event, Emitter<AnnouncementState> emit) async {
     emit(AnnouncementLoading());
@@ -50,9 +51,9 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
         return;
       }
 
-      final announcements = await announcementRepository.getAnnouncementById(
-          event.id, token);
-        emit((SingleAnnouncementLoaded(announcements)));
+      final announcements =
+          await announcementRepository.getAnnouncementById(event.id, token);
+      emit((SingleAnnouncementLoaded(announcements)));
     } catch (e) {
       emit(AnnouncementOperationFailure(e.toString()));
     }
@@ -76,13 +77,14 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
           event.image,
           event.tag,
           token);
-        print(response);
-      if (response) {
+      if (response['success']) {
         emit(AnnouncementOperationSuccess());
+      } else if (response['logout']) {
+        emit(NoTokenFound());
       } else {
         emit(const AnnouncementOperationFailure(
             'Failed to create announcement'));
-      }
+      } 
     } catch (e) {
       emit(AnnouncementOperationFailure(e.toString()));
     }
@@ -93,7 +95,7 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
     emit(AnnouncementLoading());
     try {
       final token = await _getToken();
-      if (token == null) {
+      if (token == null  ) {
         emit(NoTokenFound());
         return;
       }
@@ -107,8 +109,10 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
           event.image,
           event.tag,
           token);
-      if (response) {
+       if (response['success']) {
         emit(AnnouncementOperationSuccess());
+      } else if (response['logout']) {
+        emit(NoTokenFound());
       } else {
         emit(const AnnouncementOperationFailure(
             'Failed to update announcement'));
@@ -129,8 +133,10 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
       }
       final response =
           await announcementRepository.deleteAnnouncementById(event.id, token);
-      if (response) {
+      if (response['success']) {
         emit(AnnouncementOperationSuccess());
+      } else if (response['logout']) {
+        emit(NoTokenFound());
       } else {
         emit(const AnnouncementOperationFailure(
             'Failed to delete announcement'));
@@ -151,8 +157,4 @@ class AnnouncementBloc extends Bloc<AnnouncementEvent, AnnouncementState> {
     print('$event is the event that was called');
     super.onEvent(event);
   }
-
-
-
- 
 }

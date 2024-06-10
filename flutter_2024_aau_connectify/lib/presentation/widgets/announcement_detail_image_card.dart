@@ -6,7 +6,6 @@ class AnnouncementDetailImageCard extends StatelessWidget {
   final String image;
   const AnnouncementDetailImageCard({super.key, required this.image});
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,10 +13,9 @@ class AnnouncementDetailImageCard extends StatelessWidget {
       height: CustomImageHeights.imagesMedium,
       child: Card(
         child: Container(
-          decoration:  BoxDecoration(
+          decoration: BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image:  NetworkImage(image))),
+                  fit: BoxFit.cover, image: NetworkImage(image))),
         ),
       ),
     );

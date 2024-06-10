@@ -34,7 +34,6 @@ class UserDataProvider {
     }
   }
 
- 
   Future<Map> registerUser(String fullName, String email, String password,
       String studentId, String studentPassword) async {
     bool status = false;
@@ -78,6 +77,26 @@ class UserDataProvider {
       final responce = await http
           .post(url, body: body, headers: {"content-type": "application/json"});
       return {'body': responce.body, 'statusCode': responce.statusCode};
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<Map> getUserDetails(String token) async {
+    try {
+      Uri url = Uri.parse('${APIEndpoints.baseUrl}${APIEndpoints.getAllUsers}');
+      Map<String, String> header = {
+        'Authorization': 'Bearer $token ',
+        'Content-Type': 'application/json',
+      };
+
+      final responce = await http.get(url, headers: header);
+
+      if (responce.statusCode == 200) {
+        return {'body': responce.body, 'success': true};
+      } else {
+        return {'body': responce.body, 'success': false};
+      }
     } catch (e) {
       throw e.toString();
     }

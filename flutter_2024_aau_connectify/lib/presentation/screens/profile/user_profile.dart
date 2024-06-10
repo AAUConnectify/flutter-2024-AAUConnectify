@@ -6,6 +6,7 @@ import 'package:flutter_2024_aau_connectify/presentation/navigation/route.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/heights.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/paddings.dart';
 import 'package:flutter_2024_aau_connectify/presentation/style/radiuses.dart';
+import 'package:flutter_2024_aau_connectify/presentation/widgets/edit_popup.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -102,7 +103,9 @@ class ProfileUser extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: CustomPaddings.small),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showEditDialog(context, fullName: name, fieldOfStudy: fieldOfStudy, bio: '', profilePicture: image);
+                              },
                               style: Theme.of(context)
                                   .elevatedButtonTheme
                                   .style!

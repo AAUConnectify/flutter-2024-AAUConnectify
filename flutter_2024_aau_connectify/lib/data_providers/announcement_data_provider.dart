@@ -146,6 +146,7 @@ class AnnouncementDataProvider {
           'message': 'Failed to delete announcement',
           'body': response.body
         };
+        
       }
     } catch (e) {
       return {'success': false, 'message': 'Failed to delete announcement'};

@@ -76,5 +76,17 @@ class UserRepository {
       return {'statusCode': 500};
     }
   }
+
+  //get user details
+  Future<Map> getUserDetails(String token) async {
+    try {
+      final response = await userDataProvider.getUserDetails(token);
+      if (response['success'] == false) return {'success': false, 'message': 'Failed to get user details'};
+      final data = jsonDecode(response['body']);
+      return {'success': true, 'user': data};
+    } catch (e) {
+      return {'success': false, 'message': 'Failed to get user details'};
+    }
+  }
   
 }

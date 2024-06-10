@@ -64,3 +64,4 @@ class CheckStudent extends AuthenticationEvent {
   List<Object> get props => [studentId, studentPassword];
 }
 
+class GetUserDetails extends AuthenticationEvent{}

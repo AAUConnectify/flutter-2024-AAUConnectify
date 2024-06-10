@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_2024_aau_connectify/models/user_model.dart';
 import 'package:flutter_2024_aau_connectify/repository/user_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,19 +22,23 @@ Future<void> saveToken(String token) async {
   await prefs.setString('auth_token', token);
 }
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository;
 
-  AuthenticationBloc({required this.userRepository}) : super(AuthenticationInitial()) {
+  AuthenticationBloc({required this.userRepository})
+      : super(AuthenticationInitial()) {
     on<AppStarted>(_onAppStarted);
     on<LoggedIn>(_onLoggedIn);
     on<LoggedOut>(_onLoggedOut);
     on<Registered>(_onRegistered);
     on<VerifyEmail>(_onVerifyEmail);
     on<CheckStudent>(_onCheckStudent);
+    on<GetUserDetails>(_onGetUserDetails);
   }
 
-  Future<void> _onAppStarted(AppStarted event, Emitter<AuthenticationState> emit) async {
+  Future<void> _onAppStarted(
+      AppStarted event, Emitter<AuthenticationState> emit) async {
     final token = await getToken();
     if (token != null) {
       emit(AuthenticationAuthenticated(token: token));
@@ -42,7 +47,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
   }
 
-  Future<void> _onLoggedIn(LoggedIn event, Emitter<AuthenticationState> emit) async {
+  Future<void> _onLoggedIn(
+      LoggedIn event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     try {
       final response = await userRepository.login(event.email, event.password);
@@ -57,13 +63,15 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
   }
 
-  Future<void> _onLoggedOut(LoggedOut event, Emitter<AuthenticationState> emit) async {
+  Future<void> _onLoggedOut(
+      LoggedOut event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     await removeToken();
     emit(AuthenticationUnauthenticated());
   }
 
-  Future<void> _onRegistered(Registered event, Emitter<AuthenticationState> emit) async {
+  Future<void> _onRegistered(
+      Registered event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     try {
       final success = await userRepository.registerUser(
@@ -83,11 +91,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
   }
 
-  Future<void> _onVerifyEmail(VerifyEmail event, Emitter<AuthenticationState> emit) async {
+  Future<void> _onVerifyEmail(
+      VerifyEmail event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     try {
-      
-      final success = await userRepository.verifyUserEmail(event.email, event.code);
+      final success =
+          await userRepository.verifyUserEmail(event.email, event.code);
       if (success) {
         emit(AuthenticationEmailVerified());
       } else {
@@ -98,10 +107,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }
   }
 
-  Future<void> _onCheckStudent(CheckStudent event, Emitter<AuthenticationState> emit) async {
+  Future<void> _onCheckStudent(
+      CheckStudent event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     try {
-      final exists = await userRepository.checkStudent(event.studentId, event.studentPassword);
+      final exists = await userRepository.checkStudent(
+          event.studentId, event.studentPassword);
       if (exists) {
         emit(AuthenticationStudentVerified());
       } else {
@@ -109,6 +120,36 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       }
     } catch (e) {
       emit(AuthenticationFailure(error: e.toString()));
+    }
+  }
+
+  Future<void> _onGetUserDetails(
+      GetUserDetails event, Emitter<AuthenticationState> emit) async {
+    emit(AuthenticationLoading());
+    try {
+      final token = await getToken();
+      if (token == null) {
+        emit(AuthenticationUnauthenticated());
+        return;
+      }
+
+      final user = await userRepository.getUserDetails(token);
+      if (user['success'] == false) {
+        emit(const UserLoadFailure(error: 'Failed to get user details'));
+        return;
+      }
+      if (user['success'] == false) {
+        emit(const UserLoadFailure(error: 'Failed to get user details'));
+        return;
+      }
+      final data = user['user']['users'];
+      final List<User> userData = [];
+      for (var value in data) {
+        userData.add(User.fromMap(value));
+      }
+      emit(UserDetailLoaded(user: userData));
+    } catch (e) {
+      emit(UserLoadFailure(error: e.toString()));
     }
   }
 }

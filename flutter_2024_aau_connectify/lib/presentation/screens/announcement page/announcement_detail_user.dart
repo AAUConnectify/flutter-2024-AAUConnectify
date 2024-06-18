@@ -25,7 +25,9 @@ class AnnouncementDetailUser extends StatelessWidget {
       appBar: AppBar(
         title: const Text("post detail"),
         leading: IconButton(
+          key: const Key('back_button_from_announcement_detail'),
             onPressed: () {
+
               context.go(homeRoute);
             },
             icon: const Icon(Icons.arrow_back_ios)),
@@ -36,26 +38,30 @@ class AnnouncementDetailUser extends StatelessWidget {
             builder: (context, state) {
               if (state is SingleAnnouncementLoaded) {
                 final data = state.announcement;
-                return Expanded(
-                  child: Column(children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: CustomPaddings.medium,
-                          bottom: CustomPaddings.small,
-                          left: CustomPaddings.small),
-                      child: Text(
-                        data.title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(fontSize: CustomFontSize.h3),
-                      ),
+                return Column(
+                  children: [
+                    Expanded(
+                      child: Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: CustomPaddings.medium,
+                              bottom: CustomPaddings.small,
+                              left: CustomPaddings.small),
+                          child: Text(
+                            data.title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(fontSize: CustomFontSize.h3),
+                          ),
+                        ),
+                        AnnouncementDetailImageCard(image: data.image),
+                        AnnouncementDescriptionCard(
+                          announcement: data,
+                        ),
+                      ]),
                     ),
-                    AnnouncementDetailImageCard(image: data.image),
-                    AnnouncementDescriptionCard(
-                      announcement: data,
-                    ),
-                  ]),
+                  ],
                 );
               }
 
@@ -70,6 +76,7 @@ class AnnouncementDetailUser extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(CustomPaddings.medium),
               child: TextField(
+                key: const Key('comment_field'),
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 controller: commentController,
@@ -156,6 +163,7 @@ class AnnouncementDetailUser extends StatelessWidget {
                 }
               },
               child: ElevatedButton(
+                key: const Key('post_comment_button'),
                 style: ButtonStyle(
                   alignment: Alignment.center,
                   textStyle: MaterialStatePropertyAll(
@@ -196,65 +204,70 @@ class AnnouncementDetailUser extends StatelessWidget {
                 }
                 return SizedBox(
                   height: 300,
-                  child: Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            ListTile(
-                              leading: const CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
-                              ),
-                              title: Text(commentsData[index].fullName),
-                              subtitle: Text(commentsData[index].content),
-                            ),
-                            //Show edit and delete button only if the comment is made by the user
-                            commentsData[index].userId !=
-                                    context.watch<GeneralCubit>().userid
-                                ? Container()
-                                : Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        //edit button
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            showCommentEdit(context,
-                                                commentId:commentsData[index].id,
-                                                announcementId: id,
-                                                comment: commentsData[index].content);
-                                          },
-                                          child: const Text('Edit'),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                ListTile(
+                                  leading: const CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        'https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1msyCD.img'),
+                                  ),
+                                  title: Text(commentsData[index].fullName),
+                                  subtitle: Text(commentsData[index].content),
+                                ),
+                                //Show edit and delete button only if the comment is made by the user
+                                commentsData[index].userId !=
+                                        context.watch<GeneralCubit>().userid
+                                    ? Container()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            //edit button
+                                            ElevatedButton(
+                                              key: const Key('edit_comment_button'),
+                                              onPressed: () {
+                                                showCommentEdit(context,
+                                                    commentId:commentsData[index].id,
+                                                    announcementId: id,
+                                                    comment: commentsData[index].content);
+                                              },
+                                              child: const Text('Edit'),
+                                            ),
+                                            //delete button
+                                            ElevatedButton(
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStatePropertyAll(
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .error),
+                                              ),
+                                              onPressed: () {
+                                                BlocProvider.of<CommentBloc>(
+                                                        context)
+                                                    .add(DeleteComment(
+                                                        commentsData[index].id));
+                                              },
+                                              child: const Text('Delete'),
+                                            ),
+                                          ],
                                         ),
-                                        //delete button
-                                        ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStatePropertyAll(
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .error),
-                                          ),
-                                          onPressed: () {
-                                            BlocProvider.of<CommentBloc>(
-                                                    context)
-                                                .add(DeleteComment(
-                                                    commentsData[index].id));
-                                          },
-                                          child: const Text('Delete'),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                          ],
-                        );
-                      },
-                      separatorBuilder: (context, index) => const Divider(),
-                      itemCount: commentsData.length,
-                    ),
+                                      )
+                              ],
+                            );
+                          },
+                          separatorBuilder: (context, index) => const Divider(),
+                          itemCount: commentsData.length,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }

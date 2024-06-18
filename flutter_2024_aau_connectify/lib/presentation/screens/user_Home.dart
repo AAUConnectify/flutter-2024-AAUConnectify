@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_2024_aau_connectify/application/announcement/announcement_bloc.dart';
 import 'package:flutter_2024_aau_connectify/application/generalcubit/general_cubit.dart';
 import 'package:flutter_2024_aau_connectify/application/role/role_bloc.dart';
@@ -24,6 +25,7 @@ class Home extends StatelessWidget {
   ];
   final List<BottomNavigationBarItem> _bottomNavBarAdmin = [
     const BottomNavigationBarItem(
+      key: Key('announcement_page'),
       icon: Icon(Icons.home),
       label: 'Announcement',
     ),

@@ -77,6 +77,7 @@ void showCommentEdit(BuildContext context, {String comment = "", required String
               SizedBox(
                 height: 200,
                 child: TextField(
+                  key: const Key('comment_edit_textfield'),
                   controller: commentController,
                   maxLines: null, // Allow multiple lines
                   expands: true, // Expand to fill the container
@@ -98,6 +99,7 @@ void showCommentEdit(BuildContext context, {String comment = "", required String
             child: const Text('Cancel'),
           ),
           ElevatedButton(
+            key: const Key('update_comment_button'),
             onPressed: () {
               BlocProvider.of<CommentBloc>(context).add(UpdateComment( commentId, commentController.text,  announcementId));
               context.pop(); // Dismiss the dialog

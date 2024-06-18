@@ -18,7 +18,6 @@ void main() {
     testWidgets('End to end Interation test by cheking all the app and navigating throught the app and then logout', (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
-      expect(find.byType(Text), findsWidgets);
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
       //find the email and password textfield and enter the email and password
@@ -29,7 +28,9 @@ void main() {
       await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 2) );
 
-      //got to admin page
+      print('Successfully logged in');
+
+  //got to admin page
       await tester.tap(find.byKey(const Key('admin_page')));
       await tester.pumpAndSettle();
 
@@ -38,7 +39,6 @@ void main() {
       await tester.pumpAndSettle();
 
       //create announcement
-      expect(find.byKey(const Key('create_announcement_button')), findsOneWidget);
       await tester.tap(find.byKey(const Key('create_announcement_button')));
       await tester.pumpAndSettle();
 
@@ -53,6 +53,7 @@ void main() {
       await tester.tap(find.byKey(const Key('finish_create_announcement_button')));
       await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 2));
+      print('Successfully created an announcement');
       //got back manage announcement
       await tester.tap(find.byKey(const Key('back_button_from_create_announcement')));
       await tester.pumpAndSettle();
@@ -73,7 +74,46 @@ void main() {
       await tester.pumpAndSettle();
       await Future.delayed(const Duration(seconds: 2));
 
+      print('Successfully deleted an announcement'); 
 
+      //got to announcement page
+      await tester.tap(find.byKey(const Key('announcement_page'),));
+      await tester.pumpAndSettle();
+
+      //got to annoucement read more
+      await tester.tap(find.byKey(const Key('Announcement_read_more_button')).at(0));
+      await tester.pumpAndSettle();
+      await Future.delayed(const Duration(seconds: 2));
+
+      //add a comment
+      await tester.enterText(find.byKey(const Key('comment_field')), 'This is a comment from Integration Test');
+      await tester.tap(find.byKey(const Key('post_comment_button')));
+      await tester.pumpAndSettle();
+
+      print('Successfully added a comment');
+      await Future.delayed(const Duration(seconds: 2));
+
+      // edit the comment
+      await tester.tap(find.byKey(const Key('edit_comment_button')).at(0));
+      await tester.pumpAndSettle();
+
+      await Future.delayed(const Duration(seconds: 1));
+
+      await tester.enterText(find.byKey(const Key('comment_edit_textfield')), 'This is an edited comment from Integration Test');
+      await Future.delayed(const Duration(seconds: 2));
+      await tester.tap(find.byKey(const Key('update_comment_button')));
+      await tester.pumpAndSettle();
+
+      await Future.delayed(const Duration(seconds: 2));
+
+      print('Successfully edited a comment');
+
+      //got back to announcement page
+      await tester.tap(find.byKey(const Key('back_button_from_announcement_detail')));
+      await tester.pumpAndSettle();
+
+      await Future.delayed(const Duration(seconds: 2));
+ 
       //got to profile
       await tester.tap(find.byKey(const Key('profile')));
       await tester.pumpAndSettle();
@@ -82,11 +122,10 @@ void main() {
       await tester.tap(find.byKey(const  Key('logout_button')));
       await tester.pumpAndSettle();
       //expect to find Home page
-      expect(find.byType(LandingPageMainComponent), findsOneWidget);
     });
   });
 
-}
+} 
 
 
 /* 

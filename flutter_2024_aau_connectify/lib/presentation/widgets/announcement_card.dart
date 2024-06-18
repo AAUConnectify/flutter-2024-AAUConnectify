@@ -51,6 +51,7 @@ class AnnouncementCard extends StatelessWidget {
             Container(
                 margin: const EdgeInsets.all(CustomPaddings.small),
                 child: ElevatedButton(
+                  key: const Key('Announcement_read_more_button'),
                     onPressed: () {
                       context
                           .push(announcementDetailUserRoute, extra: {'id': id});
